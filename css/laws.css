@@ -1,0 +1,51 @@
+div#lawBackNavigation {
+    margin: 2.5rem;
+    float: left;
+}
+
+div#lawBackNavigation a {
+    height: 5rem;
+    width: 5rem;
+    display: inline-block;
+}
+
+div#lawBackNavigation a:after {
+    padding: 0 0.3rem;
+    position: absolute;
+
+    font: normal normal normal 5rem/1 FontAwesome;
+    color: white;
+
+    pointer-events: none;
+    content: '\f060';
+}
+
+div#homeNavigation {
+    margin: 10rem 0 0 7.5rem;
+    width: 225px;
+
+    float: left;
+}
+
+div#homeNavigation ul {
+    width: 100%;
+}
+
+div#homeNavigation ul li {
+    margin: 1rem;
+}
+
+div#homeNavigation ul li a {
+    display: block;
+    text-align: center;
+}
+
+div#generalInformation {
+    float: right;
+    width: 25rem;
+    height: 40rem;
+    margin: 5rem;
+    padding: 2.5rem;
+    border: #666666 solid 2px;
+    border-radius: 15px;
+}
