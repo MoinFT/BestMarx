@@ -1,0 +1,17 @@
+div#homeNavigation {
+    margin: 10rem 0 0 15rem;
+    width: 225px;
+}
+
+div#homeNavigation ul {
+    width: 100%;
+}
+
+div#homeNavigation ul li {
+    margin: 1rem;
+}
+
+div#homeNavigation ul li a {
+    display: block;
+    text-align: center;
+}
