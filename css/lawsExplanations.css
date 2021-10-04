@@ -1,0 +1,17 @@
+div#explanation {
+    float: left;
+    margin-left: 25rem;
+    margin-top: 5rem;
+}
+
+p#explanationText {
+    width: 70rem;
+}
+
+div#explanationPicture {
+    width: 70rem;
+}
+
+div#explanationPicture img {
+    width: 100%;
+}

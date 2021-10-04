@@ -8,20 +8,6 @@ html, body {
     width: 100%;
 }
 
-section {
-    top: 0;
-    position: fixed;
-
-    height: 100%;
-    width: 100%;
-}
-
-div.section {
-    padding-top: 10rem;
-    height: 100%;
-    width: 100%;
-}
-
 ul {
     list-style: none;
     margin: 0;
@@ -58,4 +44,70 @@ p {
     font-family: "IBM Plex Mono", sans-serif;
     font-size: 1.75rem;
     color: #ffffff;
+}
+
+p.headline {
+    font-size: 2.25rem;
+}
+
+h1 {
+    font-family: "IBM Plex Mono", sans-serif;
+    font-size: 3.5rem;
+    color: #ffffff;
+}
+
+section {
+    top: 0;
+    position: fixed;
+
+    height: 100%;
+    width: 100%;
+}
+
+div.section {
+    padding-top: 10rem;
+    height: 100%;
+    width: 100%;
+}
+
+div.backNavigation {
+    margin: 5rem 2.5rem 2.5rem 7.5rem;
+    float: left;
+}
+
+div.backNavigation a {
+    height: 5rem;
+    width: 5rem;
+    display: inline-block;
+}
+
+div.backNavigation a:after {
+    padding: 0 0.3rem;
+    position: absolute;
+
+    font: normal normal normal 5rem/1 FontAwesome;
+    color: white;
+
+    pointer-events: none;
+    content: '\f060';
+}
+
+div#onSiteNavigation {
+    margin: 10rem 0 0 7.5rem;
+    width: 225px;
+
+    float: left;
+}
+
+div#onSiteNavigation ul {
+    width: 100%;
+}
+
+div#onSiteNavigation ul li {
+    margin: 1rem;
+}
+
+div#onSiteNavigation ul li a {
+    display: block;
+    text-align: center;
 }
