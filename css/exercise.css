@@ -1,0 +1,125 @@
+div#exerciseArea {
+    width: 60rem;
+    margin: 7.5rem 0 0 7.5rem;
+    float: left;
+}
+
+div#exerciseArea p#exerciseDefinition {
+    margin: 0;
+}
+
+div#exerciseProgress {
+    margin-top: 7.5rem;
+    margin-right: 17.5rem;
+
+    width: 20rem;
+    height: 2.5rem;
+
+    float: right;
+}
+
+div#exerciseProgress p {
+    float: left;
+    margin: 0 0 1rem 0;
+    width: 100%;
+}
+
+div#exerciseProgress div#progress {
+    width: 60%;
+    height: 1rem;
+    border-radius: 0.5rem 0 0 0.5rem;
+    background-color: #00e600;
+
+    float: left;
+}
+
+div#exerciseProgress div#rest {
+    width: 40%;
+    height: 1rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    background-color: #666666;
+
+    float: left;
+}
+
+div#exerciseNavigation {
+    bottom: 0;
+    margin-bottom: 5.25rem;
+    position: absolute;
+
+    height: 12.5rem;
+    width: 100%;
+}
+
+div#exerciseNavigation div {
+    width: 12rem;
+    margin: 0 10rem;
+}
+
+div#exerciseNavigation div#backExerciseNavigation {
+    float: left;
+}
+
+div#exerciseNavigation div#backExerciseNavigation a {
+    width: 8rem;
+    padding-left: 3.25rem;
+}
+
+div#exerciseNavigation div#backExerciseNavigation a:before {
+    position: absolute;
+
+    font: normal normal normal 2.5rem/1 FontAwesome;
+    color: white;
+
+    pointer-events: none;
+    content: '\f060';
+
+    margin-left: -2.2rem;
+}
+
+div#exerciseNavigation div#forwardExerciseNavigation {
+    float: right;
+}
+
+div#exerciseNavigation div#forwardExerciseNavigation a {
+    width: 8rem;
+    padding-right: 3.25rem;
+}
+
+div#exerciseNavigation div#forwardExerciseNavigation a:after {
+    position: absolute;
+
+    font: normal normal normal 2.5rem/1 FontAwesome;
+    color: white;
+
+    pointer-events: none;
+    content: '\f061';
+
+    margin-left: 8rem;
+}
+
+div#exerciseNavigation div#finishExerciseNavigation {
+    width: 17rem;
+    float: right;
+}
+
+div#exerciseNavigation div#finishExerciseNavigation a {
+    width: 13rem;
+    padding-right: 3.25rem;
+}
+
+div#exerciseNavigation div#finishExerciseNavigation a:hover {
+    background-color: #39ac39;
+}
+
+div#exerciseNavigation div#finishExerciseNavigation a:after {
+    position: absolute;
+
+    font: normal normal normal 2.5rem/1 FontAwesome;
+    color: white;
+
+    pointer-events: none;
+    content: '\f00c';
+
+    margin-left: 13rem;
+}
