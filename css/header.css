@@ -20,10 +20,16 @@ header {
     height: 100%;
 }
 
-.headerHeadline {
+p.headerHeadline {
     font-size: 3rem;
     margin-left: 10rem;
     float: left;
+}
+
+a.headerHeadline {
+    font-size: 3rem;
+    float: left;
+    text-decoration: none;
 }
 
 .showNavigationButton {

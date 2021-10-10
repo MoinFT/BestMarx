@@ -2,16 +2,21 @@ div#explanation {
     float: left;
     margin-left: 25rem;
     margin-top: 5rem;
-}
-
-p#explanationText {
     width: 70rem;
 }
 
-div#explanationPicture {
-    width: 70rem;
-}
-
-div#explanationPicture img {
+p.explanationText {
+    margin-bottom: 0;
     width: 100%;
+    float: left;
+}
+
+div#explanation div.leftSide {
+    float: left;
+    width: 25rem;
+}
+
+div#explanation div.rightSide {
+    float: left;
+    margin-left: 10rem;
 }

@@ -44,6 +44,17 @@ a.button:hover {
     opacity: 1;
 }
 
+input.textField {
+    background-color: #666666;
+    border-radius: 0.5rem;
+    border: none;
+    color: #ffffff;
+}
+
+input.textField:focus-visible {
+    outline-color: #3366ff;
+}
+
 p {
     font-family: "IBM Plex Mono", sans-serif;
     font-size: 1.75rem;
@@ -52,6 +63,11 @@ p {
 
 p.headline {
     font-size: 2.25rem;
+}
+
+span.mathStyle {
+    font-family: "Aref Ruqaa", sans-serif;
+    font-size: 2rem;
 }
 
 h1 {
@@ -98,7 +114,7 @@ div.backNavigation a:after {
 
 div#onSiteNavigation {
     margin: 10rem 0 0 7.5rem;
-    width: 225px;
+    width: 24rem;
 
     float: left;
 }
@@ -109,9 +125,4 @@ div#onSiteNavigation ul {
 
 div#onSiteNavigation ul li {
     margin: 1rem;
-}
-
-div#onSiteNavigation ul li a {
-    display: block;
-    text-align: center;
 }

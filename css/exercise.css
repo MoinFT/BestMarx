@@ -42,6 +42,33 @@ div#exerciseProgress div#rest {
     float: left;
 }
 
+div#exercise {
+    width: 100%;
+    float: left;
+    margin-top: 7.5rem;
+}
+
+div#exercise div {
+    margin: 0 22.5rem;
+}
+
+div#exercise div p {
+    float: left;
+    margin: 0;
+    font-family: "Aref Ruqaa", sans-serif;
+    font-size: 2rem;
+}
+
+div#exercise div input.textField {
+    float: left;
+    margin: 0 1rem;
+    width: 2rem;
+    text-align: center;
+
+    font-size: 2rem;
+    font-family: "Aref Ruqaa", sans-serif;
+}
+
 div#exerciseNavigation {
     bottom: 0;
     margin-bottom: 5.25rem;
