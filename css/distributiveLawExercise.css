@@ -1,3 +1,7 @@
 div#distributiveLawExercise {
     display: none;
 }
+
+div#distributiveLawExerciseResults {
+    display: none;
+}

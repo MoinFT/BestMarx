@@ -1,3 +1,7 @@
 div#commutativeLawExercise {
     display: none;
 }
+
+div#commutativeLawExerciseResults {
+    display: none;
+}

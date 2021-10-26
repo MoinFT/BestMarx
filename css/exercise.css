@@ -81,18 +81,19 @@ div#exerciseNavigation {
 div#exerciseNavigation div {
     width: 12rem;
     margin: 0 10rem;
-}
-
-div#exerciseNavigation div#backExerciseNavigation {
     float: left;
 }
 
-div#exerciseNavigation div#backExerciseNavigation a {
+div#exerciseNavigation div#backwardExerciseNavigation {
+    float: left;
+}
+
+div#exerciseNavigation div#backwardExerciseNavigation a {
     width: 8rem;
     padding-left: 3.25rem;
 }
 
-div#exerciseNavigation div#backExerciseNavigation a:before {
+div#exerciseNavigation div#backwardExerciseNavigation a:before {
     position: absolute;
 
     font: normal normal normal 2.5rem/1 FontAwesome;
@@ -149,4 +150,76 @@ div#exerciseNavigation div#finishExerciseNavigation a:after {
     content: '\f00c';
 
     margin-left: 13rem;
+}
+
+div#exerciseResults {
+    float: left;
+    margin-left: 10rem;
+    margin-top: 5rem;
+}
+
+div.exerciseOutputSplit {
+    float: left;
+    margin-right: 15rem;
+}
+
+div.oneExercise {
+    height: 9.5rem;
+    margin: 2.5rem 0 0 0;
+}
+
+div.oneExercise div.exerciseNameFeedback {
+    height: 100%;
+    width: 15rem;
+    float: left;
+}
+
+div.oneExercise div.exerciseCorrection {
+    float: left;
+    height: 100%;
+
+    align-items: center;
+    display: flex;
+    margin-left: 2.5rem;
+}
+
+div.oneExercise div.exerciseCorrection p {
+    height: 2.5rem;
+    float: left;
+    margin: 0.2rem;
+}
+
+div.oneExercise div.exerciseCorrection input {
+    float: left;
+    height: 2.5rem;
+    width: 3rem;
+    padding: 0.2rem;
+    margin: 0 0.5rem;
+    font-size: 1.75rem;
+    text-align: center;
+}
+
+p.exerciseName {
+    font-size: 2.25rem;
+    font-weight: bold;
+    height: 3rem;
+    margin: 0;
+}
+
+div.exerciseFeedback {
+    height: 4.5rem;
+    align-content: center;
+    display: flex;
+    float: left;
+
+    margin: 1.25rem 0 0 0;
+}
+
+div.exerciseFeedback p {
+    margin: auto;
+}
+
+div.exerciseFeedback img {
+    height: 100%;
+    margin-right: 1rem;
 }

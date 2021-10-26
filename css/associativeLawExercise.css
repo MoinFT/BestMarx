@@ -1,3 +1,7 @@
 div#associativeLawExercise {
     display: none;
 }
+
+div#associativeLawExerciseResults {
+    display: none;
+}

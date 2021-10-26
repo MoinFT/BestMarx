@@ -8,8 +8,15 @@ function setProgress(exercise) {
     let exerciseRestBarElement = document.getElementById("rest")
     exerciseRestBarElement.style.width = ((1 - (exercise.exerciseNumber / exercise.maxExerciseNumber)) * 100).toString() + "%"
 
+    let backwardExerciseNavigation = document.getElementById("backwardExerciseNavigation")
     let forwardExerciseNavigation = document.getElementById("forwardExerciseNavigation")
     let finishExerciseNavigation = document.getElementById("finishExerciseNavigation")
+
+    if (exercise.exerciseNumber === 1) {
+        backwardExerciseNavigation.style.display = "none"
+    } else {
+        backwardExerciseNavigation.style.display = "inherit"
+    }
 
     if (exercise.exerciseNumber === exercise.maxExerciseNumber) {
         forwardExerciseNavigation.style.display = "none"
@@ -36,6 +43,12 @@ function backExerciseNavigation() {
             case "distributiveLaw":
                 createDistributivLawExercise()
                 break
+            case "commutativeLaw":
+                createCommutativeLawExercise()
+                break
+            case "associativeLaw":
+                createAssociativeLawExercise()
+                break
         }
     }
 }
@@ -53,6 +66,12 @@ function forwardExerciseNavigation() {
         switch (exercise.type) {
             case "distributiveLaw":
                 createDistributivLawExercise()
+                break
+            case "commutativeLaw":
+                createCommutativeLawExercise()
+                break
+            case "associativeLaw":
+                createAssociativeLawExercise()
                 break
         }
     }

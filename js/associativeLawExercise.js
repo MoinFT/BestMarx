@@ -11,6 +11,8 @@ function startExercise(difficulty) {
 
     window.sessionStorage.setItem("exercise", JSON.stringify(exercise))
     setProgress(exercise)
+
+    createAssociativeLawExercise()
 }
 
 function backToNavigation() {
@@ -19,4 +21,714 @@ function backToNavigation() {
 
     let lawExercise = document.getElementById("associativeLawExercise")
     lawExercise.style.display = "none"
+
+    let lawExerciseCorrection = document.getElementById("associativeLawExerciseResults")
+    lawExerciseCorrection.style.display = "none"
+}
+
+function createAssociativeLawExercise() {
+    let exercise = createExerciseObject(window.sessionStorage.getItem("exercise"))
+    let exerciseDifficulty = exercise.difficulty
+
+    let div = document.getElementById("exercise")
+
+    let additionTask
+    let bracketIndex
+
+    let firstNumber
+    let secondNumber
+    let thirdNumber
+
+    if (exercise.exercises[exercise.exerciseNumber - 1] === undefined) {
+        firstNumber = Math.floor(Math.random() * 20 + 5)
+        secondNumber = Math.floor(Math.random() * 20 + 5)
+        thirdNumber = Math.floor(Math.random() * 20 + 5)
+
+        while (secondNumber === firstNumber) {
+            secondNumber = Math.floor(Math.random() * 20 + 5)
+        }
+
+        while (thirdNumber === firstNumber || thirdNumber === secondNumber) {
+            thirdNumber = Math.floor(Math.random() * 20 + 5)
+        }
+
+        additionTask = Math.floor(Math.random() + 0.5)
+        bracketIndex = Math.floor(Math.random() * 3 + 1)
+
+        let exerciseData = createExerciseDataObject("{}")
+        exerciseData.exerciseNumber = exercise.exerciseNumber
+        exerciseData.firstNumber = firstNumber
+        exerciseData.secondNumber = secondNumber
+        exerciseData.thirdNumber = thirdNumber
+
+        exerciseData.additionTask = additionTask
+        exerciseData.bracketIndex = bracketIndex
+
+        exercise.exercises.push(exerciseData)
+        window.sessionStorage.setItem("exercise", JSON.stringify(exercise))
+    } else {
+        firstNumber = exercise.exercises[exercise.exerciseNumber - 1].firstNumber
+        secondNumber = exercise.exercises[exercise.exerciseNumber - 1].secondNumber
+        thirdNumber = exercise.exercises[exercise.exerciseNumber - 1].thirdNumber
+
+        additionTask = exercise.exercises[exercise.exerciseNumber - 1].additionTask
+        bracketIndex = exercise.exercises[exercise.exerciseNumber - 1].bracketIndex
+    }
+
+    console.log(firstNumber)
+    console.log(secondNumber)
+    console.log(thirdNumber)
+
+    let html = ""
+
+    html += "<div>"
+    if (exerciseDifficulty === "light") {
+        if (additionTask === 1) {
+            switch (bracketIndex) {
+                case 1:
+                    html += `<p>(${firstNumber} + ${secondNumber}) + ${thirdNumber} = ${firstNumber} + </p>`
+                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<p> + </p>`
+                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    break
+                case 2:
+                    html += `<p>(${firstNumber} + ${secondNumber}) + ${thirdNumber} = (${firstNumber} + </p>`
+                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<p>) + </p>`
+                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    break
+                case 3:
+                    html += `<p>(${firstNumber} + ${secondNumber}) + ${thirdNumber} = ${firstNumber} + (</p>`
+                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<p> + </p>`
+                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<p>)</p>`
+                    break
+            }
+        } else {
+            switch (bracketIndex) {
+                case 1:
+                    html += `<p>(${firstNumber} ⋅ ${secondNumber}) ⋅ ${thirdNumber} = ${firstNumber} ⋅ </p>`
+                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<p> ⋅ </p>`
+                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    break
+                case 2:
+                    html += `<p>(${firstNumber} ⋅ ${secondNumber}) ⋅ ${thirdNumber} = (${firstNumber} ⋅ </p>`
+                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<p>) ⋅ </p>`
+                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    break
+                case 3:
+                    html += `<p>(${firstNumber} ⋅ ${secondNumber}) ⋅ ${thirdNumber} = ${firstNumber} ⋅ (</p>`
+                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<p> ⋅ </p>`
+                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<p>)</p>`
+                    break
+            }
+        }
+    } else if (exerciseDifficulty === "medium") {
+        if (additionTask === 1) {
+            switch (bracketIndex) {
+                case 1:
+                    html += `<p>(${firstNumber} + ${secondNumber}) + ${thirdNumber} = </p>`
+                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<p> + </p>`
+                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<p> + </p>`
+                    html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                    break
+                case 2:
+                    html += `<p>${firstNumber} + (${secondNumber} + ${thirdNumber}) = </p>`
+                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<p> + </p>`
+                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<p> + </p>`
+                    html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                    break
+                case 3:
+                    html += `<p>${firstNumber} + ${secondNumber} + ${thirdNumber} = (</p>`
+                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<p> + </p>`
+                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<p>) + </p>`
+                    html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                    break
+            }
+        } else {
+            switch (bracketIndex) {
+                case 1:
+                    html += `<p>(${firstNumber} ⋅ ${secondNumber}) ⋅ ${thirdNumber} = </p>`
+                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<p> ⋅ </p>`
+                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<p> ⋅ </p>`
+                    html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                    break
+                case 2:
+                    html += `<p>${firstNumber} ⋅ (${secondNumber} ⋅ ${thirdNumber}) = </p>`
+                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<p> ⋅ </p>`
+                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<p> ⋅ </p>`
+                    html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                    break
+                case 3:
+                    html += `<p>${firstNumber} ⋅ ${secondNumber} ⋅ ${thirdNumber} = (</p>`
+                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<p> ⋅ </p>`
+                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<p>) ⋅ </p>`
+                    html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                    break
+            }
+        }
+    } else if (exerciseDifficulty === "hard") {
+        if (additionTask === 1) {
+            if (Math.floor(Math.random() + 0.5) === 1) {
+                html += `<p>(</p>`
+                html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                html += `<p> + </p>`
+                html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                html += `<p>) + </p>`
+                html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                html += `<p> = </p>`
+                html += `<input oninput="getNumber(3)" class='textField' type='text' id='fourthNumberAnswer' maxlength='2'/>`
+                html += `<p> + </p>`
+                html += `<input oninput="getNumber(4)" class='textField' type='text' id='fifthNumberAnswer' maxlength='2'/>`
+                html += `<p> + </p>`
+                html += `<input oninput="getNumber(5)" class='textField' type='text' id='sixthNumberAnswer' maxlength='2'/>`
+            } else {
+                html += `<p></p>`
+                html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                html += `<p> + (</p>`
+                html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                html += `<p> + </p>`
+                html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                html += `<p>) = </p>`
+                html += `<input oninput="getNumber(3)" class='textField' type='text' id='fourthNumberAnswer' maxlength='2'/>`
+                html += `<p> + </p>`
+                html += `<input oninput="getNumber(4)" class='textField' type='text' id='fifthNumberAnswer' maxlength='2'/>`
+                html += `<p> + </p>`
+                html += `<input oninput="getNumber(5)" class='textField' type='text' id='sixthNumberAnswer' maxlength='2'/>`
+            }
+        } else {
+            if (Math.floor(Math.random() + 0.5) === 1) {
+                html += `<p>(</p>`
+                html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                html += `<p> ⋅ </p>`
+                html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                html += `<p>) ⋅ </p>`
+                html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                html += `<p> = </p>`
+                html += `<input oninput="getNumber(3)" class='textField' type='text' id='fourthNumberAnswer' maxlength='2'/>`
+                html += `<p> ⋅ </p>`
+                html += `<input oninput="getNumber(4)" class='textField' type='text' id='fifthNumberAnswer' maxlength='2'/>`
+                html += `<p> ⋅ </p>`
+                html += `<input oninput="getNumber(5)" class='textField' type='text' id='sixthNumberAnswer' maxlength='2'/>`
+            } else {
+                html += `<p></p>`
+                html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                html += `<p> ⋅ (</p>`
+                html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                html += `<p> ⋅ </p>`
+                html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                html += `<p>) = </p>`
+                html += `<input oninput="getNumber(3)" class='textField' type='text' id='fourthNumberAnswer' maxlength='2'/>`
+                html += `<p> ⋅ </p>`
+                html += `<input oninput="getNumber(4)" class='textField' type='text' id='fifthNumberAnswer' maxlength='2'/>`
+                html += `<p> ⋅ </p>`
+                html += `<input oninput="getNumber(5)" class='textField' type='text' id='sixthNumberAnswer' maxlength='2'/>`
+            }
+        }
+    }
+    html += "</div>"
+
+    div.innerHTML = html
+}
+
+let firstNumberAnswer = "0"
+let secondNumberAnswer = "0"
+let thirdNumberAnswer = "0"
+let fourthNumberAnswer = "0"
+let fifthNumberAnswer = "0"
+let sixthNumberAnswer = "0"
+
+function finishExercise() {
+    let exercise = createExerciseObject(window.sessionStorage.getItem("exercise"))
+    let exerciseDifficulty = exercise.difficulty
+
+    let html = ""
+    let exerciseData = exercise.exercises
+
+    for (let i = 0; i < exercise.maxExerciseNumber; i++) {
+        getExerciseAnswers(exerciseData, i)
+
+        if (i / 5 === Math.round(i / 5)) {
+            html += `<div class="exerciseOutputSplit">`
+        }
+
+        html += `<div class="oneExercise">`
+        html += `<div class="exerciseNameFeedback">`
+        html += `<p class="exerciseName">Aufgabe ${i + 1}</p>`
+        html += `<div class="exerciseFeedback">`
+
+        let additionTask = exerciseData[i].additionTask
+        let bracketIndex = exerciseData[i].bracketIndex
+
+        if (exerciseDifficulty === "light") {
+            if (firstNumberAnswer !== secondNumberAnswer) {
+                if (exerciseData[i].secondNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === firstNumberAnswer) {
+                    if ((exerciseData[i].secondNumber.toString() === secondNumberAnswer && exerciseData[i].secondNumber.toString() !== firstNumberAnswer) || (exerciseData[i].thirdNumber.toString() === secondNumberAnswer && exerciseData[i].thirdNumber.toString() !== firstNumberAnswer)) {
+                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/good.png"><p>Richtig</p>`
+                    } else {
+                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                    }
+                } else {
+                    if (exerciseData[i].secondNumber.toString() === secondNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer) {
+                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                    } else {
+                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
+                    }
+                }
+            } else {
+                if (exerciseData[i].secondNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === firstNumberAnswer) {
+                    html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                } else {
+                    if (exerciseData[i].secondNumber.toString() === secondNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer) {
+                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                    } else {
+                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
+                    }
+                }
+            }
+        } else if (exerciseDifficulty === "medium") {
+            if (firstNumberAnswer !== secondNumberAnswer && firstNumberAnswer !== thirdNumberAnswer && secondNumberAnswer !== thirdNumberAnswer) {
+                if (exerciseData[i].firstNumber.toString() === firstNumberAnswer || exerciseData[i].secondNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === firstNumberAnswer) {
+                    if ((exerciseData[i].firstNumber.toString() === secondNumberAnswer && exerciseData[i].firstNumber.toString() !== firstNumberAnswer) || (exerciseData[i].secondNumber.toString() === secondNumberAnswer && exerciseData[i].secondNumber.toString() !== firstNumberAnswer) || (exerciseData[i].thirdNumber.toString() === secondNumberAnswer && exerciseData[i].thirdNumber.toString() !== firstNumberAnswer)) {
+                        if ((exerciseData[i].firstNumber.toString() === thirdNumberAnswer && exerciseData[i].firstNumber.toString() !== secondNumberAnswer && exerciseData[i].firstNumber.toString() !== firstNumberAnswer) || (exerciseData[i].secondNumber.toString() === thirdNumberAnswer && exerciseData[i].secondNumber.toString() !== secondNumberAnswer && exerciseData[i].secondNumber.toString() !== firstNumberAnswer) || (exerciseData[i].thirdNumber.toString() === thirdNumberAnswer && exerciseData[i].thirdNumber.toString() !== secondNumberAnswer && exerciseData[i].thirdNumber.toString() !== firstNumberAnswer)) {
+                            html += `<img alt="Bild(Richtig)" src="../css/img/feedback/good.png"><p>Richtig</p>`
+                        } else {
+                            html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        }
+                    } else {
+                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                    }
+                } else {
+                    if (exerciseData[i].firstNumber.toString() === secondNumberAnswer || exerciseData[i].secondNumber.toString() === secondNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer) {
+                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                    } else {
+                        if (exerciseData[i].firstNumber.toString() === thirdNumberAnswer || exerciseData[i].secondNumber.toString() === thirdNumberAnswer || exerciseData[i].thirdNumber.toString() === thirdNumberAnswer) {
+                            html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        } else {
+                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
+                        }
+                    }
+                }
+            } else {
+                if (exerciseData[i].firstNumber.toString() === firstNumberAnswer || exerciseData[i].secondNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === firstNumberAnswer) {
+                    if (exerciseData[i].firstNumber.toString() === secondNumberAnswer || exerciseData[i].secondNumber.toString() === secondNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer) {
+                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                    } else {
+                        if (exerciseData[i].firstNumber.toString() === thirdNumberAnswer || exerciseData[i].secondNumber.toString() === thirdNumberAnswer || exerciseData[i].thirdNumber.toString() === thirdNumberAnswer) {
+                            html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        } else {
+                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
+                        }
+                    }
+                } else {
+                    if (exerciseData[i].firstNumber.toString() === secondNumberAnswer || exerciseData[i].secondNumber.toString() === secondNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer) {
+                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                    } else {
+                        if (exerciseData[i].firstNumber.toString() === thirdNumberAnswer || exerciseData[i].secondNumber.toString() === thirdNumberAnswer || exerciseData[i].thirdNumber.toString() === thirdNumberAnswer) {
+                            html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        } else {
+                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
+                        }
+                    }
+                }
+            }
+        } else if (exerciseDifficulty === "hard") {
+            if ((firstNumberAnswer !== secondNumberAnswer && firstNumberAnswer !== thirdNumberAnswer && secondNumberAnswer !== thirdNumberAnswer) && (fourthNumberAnswer !== fifthNumberAnswer && fourthNumberAnswer !== sixthNumberAnswer && fifthNumberAnswer !== sixthNumberAnswer)) {
+                if (exerciseData[i].firstNumber.toString() === firstNumberAnswer || exerciseData[i].secondNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === firstNumberAnswer) {
+                    if ((exerciseData[i].firstNumber.toString() === secondNumberAnswer && exerciseData[i].firstNumber.toString() !== firstNumberAnswer) || (exerciseData[i].secondNumber.toString() === secondNumberAnswer && exerciseData[i].secondNumber.toString() !== firstNumberAnswer) || (exerciseData[i].thirdNumber.toString() === secondNumberAnswer && exerciseData[i].thirdNumber.toString() !== firstNumberAnswer)) {
+                        if ((exerciseData[i].firstNumber.toString() === thirdNumberAnswer && exerciseData[i].firstNumber.toString() !== secondNumberAnswer && exerciseData[i].firstNumber.toString() !== firstNumberAnswer) || (exerciseData[i].secondNumber.toString() === thirdNumberAnswer && exerciseData[i].secondNumber.toString() !== secondNumberAnswer && exerciseData[i].secondNumber.toString() !== firstNumberAnswer) || (exerciseData[i].thirdNumber.toString() === thirdNumberAnswer && exerciseData[i].thirdNumber.toString() !== secondNumberAnswer && exerciseData[i].thirdNumber.toString() !== firstNumberAnswer)) {
+                            if (exerciseData[i].firstNumber.toString() === fourthNumberAnswer || exerciseData[i].secondNumber.toString() === fourthNumberAnswer || exerciseData[i].thirdNumber.toString() === fourthNumberAnswer) {
+                                if ((exerciseData[i].firstNumber.toString() === fifthNumberAnswer && exerciseData[i].firstNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].secondNumber.toString() === fifthNumberAnswer && exerciseData[i].secondNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].thirdNumber.toString() === fifthNumberAnswer && exerciseData[i].thirdNumber.toString() !== fourthNumberAnswer)) {
+                                    if ((exerciseData[i].firstNumber.toString() === sixthNumberAnswer && exerciseData[i].firstNumber.toString() !== fifthNumberAnswer && exerciseData[i].firstNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].secondNumber.toString() === sixthNumberAnswer && exerciseData[i].secondNumber.toString() !== fifthNumberAnswer && exerciseData[i].secondNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].thirdNumber.toString() === sixthNumberAnswer && exerciseData[i].thirdNumber.toString() !== fifthNumberAnswer && exerciseData[i].thirdNumber.toString() !== sixthNumberAnswer)) {
+                                        html += `<img alt="Bild(Richtig)" src="../css/img/feedback/good.png"><p>Richtig</p>`
+                                    } else {
+                                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                    }
+                                } else {
+                                    html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                }
+                            } else {
+                                html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                            }
+                        } else {
+                            html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        }
+                    } else {
+                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                    }
+                } else {
+                    if ((exerciseData[i].firstNumber.toString() === secondNumberAnswer && exerciseData[i].firstNumber.toString() !== firstNumberAnswer) || (exerciseData[i].secondNumber.toString() === secondNumberAnswer && exerciseData[i].secondNumber.toString() !== firstNumberAnswer) || (exerciseData[i].thirdNumber.toString() === secondNumberAnswer && exerciseData[i].thirdNumber.toString() !== firstNumberAnswer)) {
+                        if ((exerciseData[i].firstNumber.toString() === thirdNumberAnswer && exerciseData[i].firstNumber.toString() !== secondNumberAnswer && exerciseData[i].firstNumber.toString() !== firstNumberAnswer) || (exerciseData[i].secondNumber.toString() === thirdNumberAnswer && exerciseData[i].secondNumber.toString() !== secondNumberAnswer && exerciseData[i].secondNumber.toString() !== firstNumberAnswer) || (exerciseData[i].thirdNumber.toString() === thirdNumberAnswer && exerciseData[i].thirdNumber.toString() !== secondNumberAnswer && exerciseData[i].thirdNumber.toString() !== firstNumberAnswer)) {
+                            if (exerciseData[i].firstNumber.toString() === fourthNumberAnswer || exerciseData[i].secondNumber.toString() === fourthNumberAnswer || exerciseData[i].thirdNumber.toString() === fourthNumberAnswer) {
+                                if ((exerciseData[i].firstNumber.toString() === fifthNumberAnswer && exerciseData[i].firstNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].secondNumber.toString() === fifthNumberAnswer && exerciseData[i].secondNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].thirdNumber.toString() === fifthNumberAnswer && exerciseData[i].thirdNumber.toString() !== fourthNumberAnswer)) {
+                                    if ((exerciseData[i].firstNumber.toString() === sixthNumberAnswer && exerciseData[i].firstNumber.toString() !== fifthNumberAnswer && exerciseData[i].firstNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].secondNumber.toString() === sixthNumberAnswer && exerciseData[i].secondNumber.toString() !== fifthNumberAnswer && exerciseData[i].secondNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].thirdNumber.toString() === sixthNumberAnswer && exerciseData[i].thirdNumber.toString() !== fifthNumberAnswer && exerciseData[i].thirdNumber.toString() !== sixthNumberAnswer)) {
+                                        html += `<img alt="Bild(Richtig)" src="../css/img/feedback/good.png"><p>Richtig</p>`
+                                    } else {
+                                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                    }
+                                } else {
+                                    html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                }
+                            } else {
+                                html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                            }
+                        } else {
+                            html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        }
+                    } else {
+                        if ((exerciseData[i].firstNumber.toString() === thirdNumberAnswer && exerciseData[i].firstNumber.toString() !== secondNumberAnswer && exerciseData[i].firstNumber.toString() !== firstNumberAnswer) || (exerciseData[i].secondNumber.toString() === thirdNumberAnswer && exerciseData[i].secondNumber.toString() !== secondNumberAnswer && exerciseData[i].secondNumber.toString() !== firstNumberAnswer) || (exerciseData[i].thirdNumber.toString() === thirdNumberAnswer && exerciseData[i].thirdNumber.toString() !== secondNumberAnswer && exerciseData[i].thirdNumber.toString() !== firstNumberAnswer)) {
+                            if (exerciseData[i].firstNumber.toString() === fourthNumberAnswer || exerciseData[i].secondNumber.toString() === fourthNumberAnswer || exerciseData[i].thirdNumber.toString() === fourthNumberAnswer) {
+                                if ((exerciseData[i].firstNumber.toString() === fifthNumberAnswer && exerciseData[i].firstNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].secondNumber.toString() === fifthNumberAnswer && exerciseData[i].secondNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].thirdNumber.toString() === fifthNumberAnswer && exerciseData[i].thirdNumber.toString() !== fourthNumberAnswer)) {
+                                    if ((exerciseData[i].firstNumber.toString() === sixthNumberAnswer && exerciseData[i].firstNumber.toString() !== fifthNumberAnswer && exerciseData[i].firstNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].secondNumber.toString() === sixthNumberAnswer && exerciseData[i].secondNumber.toString() !== fifthNumberAnswer && exerciseData[i].secondNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].thirdNumber.toString() === sixthNumberAnswer && exerciseData[i].thirdNumber.toString() !== fifthNumberAnswer && exerciseData[i].thirdNumber.toString() !== sixthNumberAnswer)) {
+                                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                    } else {
+                                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                    }
+                                } else {
+                                    html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                }
+                            } else {
+                                html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                            }
+                        } else {
+                            if (exerciseData[i].firstNumber.toString() === fourthNumberAnswer || exerciseData[i].secondNumber.toString() === fourthNumberAnswer || exerciseData[i].thirdNumber.toString() === fourthNumberAnswer) {
+                                if ((exerciseData[i].firstNumber.toString() === fifthNumberAnswer && exerciseData[i].firstNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].secondNumber.toString() === fifthNumberAnswer && exerciseData[i].secondNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].thirdNumber.toString() === fifthNumberAnswer && exerciseData[i].thirdNumber.toString() !== fourthNumberAnswer)) {
+                                    if ((exerciseData[i].firstNumber.toString() === sixthNumberAnswer && exerciseData[i].firstNumber.toString() !== fifthNumberAnswer && exerciseData[i].firstNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].secondNumber.toString() === sixthNumberAnswer && exerciseData[i].secondNumber.toString() !== fifthNumberAnswer && exerciseData[i].secondNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].thirdNumber.toString() === sixthNumberAnswer && exerciseData[i].thirdNumber.toString() !== fifthNumberAnswer && exerciseData[i].thirdNumber.toString() !== sixthNumberAnswer)) {
+                                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                    } else {
+                                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                    }
+                                } else {
+                                    html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                }
+                            } else {
+                                if ((exerciseData[i].firstNumber.toString() === fifthNumberAnswer && exerciseData[i].firstNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].secondNumber.toString() === fifthNumberAnswer && exerciseData[i].secondNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].thirdNumber.toString() === fifthNumberAnswer && exerciseData[i].thirdNumber.toString() !== fourthNumberAnswer)) {
+                                    if ((exerciseData[i].firstNumber.toString() === sixthNumberAnswer && exerciseData[i].firstNumber.toString() !== fifthNumberAnswer && exerciseData[i].firstNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].secondNumber.toString() === sixthNumberAnswer && exerciseData[i].secondNumber.toString() !== fifthNumberAnswer && exerciseData[i].secondNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].thirdNumber.toString() === sixthNumberAnswer && exerciseData[i].thirdNumber.toString() !== fifthNumberAnswer && exerciseData[i].thirdNumber.toString() !== sixthNumberAnswer)) {
+                                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                    } else {
+                                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                    }
+                                } else {
+                                    if ((exerciseData[i].firstNumber.toString() === sixthNumberAnswer && exerciseData[i].firstNumber.toString() !== fifthNumberAnswer && exerciseData[i].firstNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].secondNumber.toString() === sixthNumberAnswer && exerciseData[i].secondNumber.toString() !== fifthNumberAnswer && exerciseData[i].secondNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].thirdNumber.toString() === sixthNumberAnswer && exerciseData[i].thirdNumber.toString() !== fifthNumberAnswer && exerciseData[i].thirdNumber.toString() !== sixthNumberAnswer)) {
+                                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                    } else {
+                                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (exerciseData[i].firstNumber.toString() === firstNumberAnswer || exerciseData[i].secondNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === firstNumberAnswer) {
+                    if (exerciseData[i].firstNumber.toString() === secondNumberAnswer || exerciseData[i].secondNumber.toString() === secondNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer) {
+                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                    } else {
+                        if (exerciseData[i].firstNumber.toString() === thirdNumberAnswer || exerciseData[i].secondNumber.toString() === thirdNumberAnswer || exerciseData[i].thirdNumber.toString() === thirdNumberAnswer) {
+                            html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        } else {
+                            if (exerciseData[i].firstNumber.toString() === fourthNumberAnswer || exerciseData[i].secondNumber.toString() === fourthNumberAnswer || exerciseData[i].thirdNumber.toString() === fourthNumberAnswer) {
+                                html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                            } else {
+                                if (exerciseData[i].firstNumber.toString() === fifthNumberAnswer || exerciseData[i].secondNumber.toString() === fifthNumberAnswer || exerciseData[i].thirdNumber.toString() === fifthNumberAnswer) {
+                                    html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                } else {
+                                    if (exerciseData[i].firstNumber.toString() === sixthNumberAnswer || exerciseData[i].secondNumber.toString() === sixthNumberAnswer || exerciseData[i].thirdNumber.toString() === sixthNumberAnswer) {
+                                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                    } else {
+                                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    if (exerciseData[i].firstNumber.toString() === secondNumberAnswer || exerciseData[i].secondNumber.toString() === secondNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer) {
+                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                    } else {
+                        if (exerciseData[i].firstNumber.toString() === thirdNumberAnswer || exerciseData[i].secondNumber.toString() === thirdNumberAnswer || exerciseData[i].thirdNumber.toString() === thirdNumberAnswer) {
+                            html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        } else {
+                            if (exerciseData[i].firstNumber.toString() === fourthNumberAnswer || exerciseData[i].secondNumber.toString() === fourthNumberAnswer || exerciseData[i].thirdNumber.toString() === fourthNumberAnswer) {
+                                html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                            } else {
+                                if (exerciseData[i].firstNumber.toString() === fifthNumberAnswer || exerciseData[i].secondNumber.toString() === fifthNumberAnswer || exerciseData[i].thirdNumber.toString() === fifthNumberAnswer) {
+                                    html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                } else {
+                                    if (exerciseData[i].firstNumber.toString() === sixthNumberAnswer || exerciseData[i].secondNumber.toString() === sixthNumberAnswer || exerciseData[i].thirdNumber.toString() === sixthNumberAnswer) {
+                                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                    } else {
+                                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        html += `</div>`
+        html += `</div>`
+
+        html += `<div class="exerciseCorrection">`
+        if (exerciseDifficulty === "light") {
+            if (additionTask === 1) {
+                switch (bracketIndex) {
+                    case 1:
+                        html += `<p>(${exerciseData[i].firstNumber} + ${exerciseData[i].secondNumber}) + ${exerciseData[i].thirdNumber} = ${exerciseData[i].firstNumber} + </p>`
+                        html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                        html += `<p> + </p>`
+                        html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                        break
+                    case 2:
+                        html += `<p>(${exerciseData[i].firstNumber} + ${exerciseData[i].secondNumber}) + ${exerciseData[i].thirdNumber} = (${exerciseData[i].firstNumber} + </p>`
+                        html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                        html += `<p>) + </p>`
+                        html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                        break
+                    case 3:
+                        html += `<p>(${exerciseData[i].firstNumber} + ${exerciseData[i].secondNumber}) + ${exerciseData[i].thirdNumber} = ${exerciseData[i].firstNumber} + (</p>`
+                        html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                        html += `<p> + </p>`
+                        html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                        html += `<p>)</p>`
+                        break
+                }
+            } else {
+                switch (bracketIndex) {
+                    case 1:
+                        html += `<p>(${exerciseData[i].firstNumber} ⋅ ${exerciseData[i].secondNumber}) ⋅ ${exerciseData[i].thirdNumber} = ${exerciseData[i].firstNumber} ⋅ </p>`
+                        html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                        html += `<p> ⋅ </p>`
+                        html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                        break
+                    case 2:
+                        html += `<p>(${exerciseData[i].firstNumber} ⋅ ${exerciseData[i].secondNumber}) ⋅ ${exerciseData[i].thirdNumber} = (${exerciseData[i].firstNumber} ⋅ </p>`
+                        html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                        html += `<p>) ⋅ </p>`
+                        html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                        break
+                    case 3:
+                        html += `<p>(${exerciseData[i].firstNumber} ⋅ ${exerciseData[i].secondNumber}) ⋅ ${exerciseData[i].thirdNumber} = ${exerciseData[i].firstNumber} ⋅ (</p>`
+                        html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                        html += `<p> ⋅ </p>`
+                        html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                        html += `<p>)</p>`
+                        break
+                }
+            }
+        } else if (exerciseDifficulty === "medium") {
+            if (additionTask === 1) {
+                switch (bracketIndex) {
+                    case 1:
+                        html += `<p>(${exerciseData[i].firstNumber} + ${exerciseData[i].secondNumber}) + ${exerciseData[i].thirdNumber} = </p>`
+                        html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                        html += `<p> + </p>`
+                        html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                        html += `<p> + </p>`
+                        html += `<input value="${thirdNumberAnswer}" class='textField' disabled="disabled" type='text' id='thirdNumberCorrection${i}'/>`
+                        break
+                    case 2:
+                        html += `<p>${exerciseData[i].firstNumber} + (${exerciseData[i].secondNumber} + ${exerciseData[i].thirdNumber}) = </p>`
+                        html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                        html += `<p> + </p>`
+                        html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                        html += `<p> + </p>`
+                        html += `<input value="${thirdNumberAnswer}" class='textField' disabled="disabled" type='text' id='thirdNumberCorrection${i}'/>`
+                        break
+                    case 3:
+                        html += `<p>${exerciseData[i].firstNumber} + ${exerciseData[i].secondNumber} + ${exerciseData[i].thirdNumber} = (</p>`
+                        html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                        html += `<p> + </p>`
+                        html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                        html += `<p>) + </p>`
+                        html += `<input value="${thirdNumberAnswer}" class='textField' disabled="disabled" type='text' id='thirdNumberCorrection${i}'/>`
+                        break
+                }
+            } else {
+                switch (bracketIndex) {
+                    case 1:
+                        html += `<p>(${exerciseData[i].firstNumber} ⋅ ${exerciseData[i].secondNumber}) ⋅ ${exerciseData[i].thirdNumber} = </p>`
+                        html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                        html += `<p> ⋅ </p>`
+                        html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                        html += `<p> ⋅ </p>`
+                        html += `<input value="${thirdNumberAnswer}" class='textField' disabled="disabled" type='text' id='thirdNumberCorrection${i}'/>`
+                        break
+                    case 2:
+                        html += `<p>${exerciseData[i].firstNumber} ⋅ (${exerciseData[i].secondNumber} ⋅ ${exerciseData[i].thirdNumber}) = </p>`
+                        html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                        html += `<p> ⋅ </p>`
+                        html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                        html += `<p> ⋅ </p>`
+                        html += `<input value="${thirdNumberAnswer}" class='textField' disabled="disabled" type='text' id='thirdNumberCorrection${i}'/>`
+                        break
+                    case 3:
+                        html += `<p>${exerciseData[i].firstNumber} ⋅ ${exerciseData[i].secondNumber} ⋅ ${exerciseData[i].thirdNumber} = (</p>`
+                        html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                        html += `<p> ⋅ </p>`
+                        html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                        html += `<p>) ⋅ </p>`
+                        html += `<input value="${thirdNumberAnswer}" class='textField' disabled="disabled" type='text' id='thirdNumberCorrection${i}'/>`
+                        break
+                }
+            }
+        } else if (exerciseDifficulty === "hard") {
+            if (additionTask === 1) {
+                html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                html += `<p> ⋅ </p>`
+                html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                html += `<p> = </p>`
+                html += `<input value="${thirdNumberAnswer}" class='textField' disabled="disabled" type='text' id='thirdNumberCorrection${i}'/>`
+                html += `<p> ⋅ </p>`
+                html += `<input value="${fourthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fourthNumberCorrection${i}'/>`
+            } else {
+                html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                html += `<p> + </p>`
+                html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                html += `<p> = </p>`
+                html += `<input value="${thirdNumberAnswer}" class='textField' disabled="disabled" type='text' id='thirdNumberCorrection${i}'/>`
+                html += `<p> + </p>`
+                html += `<input value="${fourthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fourthNumberCorrection${i}'/>`
+            }
+        }
+        html += `</div>`
+        html += `</div>`
+
+        if ((i + 1) / 5 === Math.round((i + 1) / 5)) {
+            html += "</div>"
+        }
+    }
+
+    let div = document.getElementById("exerciseResultsOut")
+    div.innerHTML = html
+
+    for (let i = 0; i < exercise.maxExerciseNumber; i++) {
+        getExerciseAnswers(exerciseData, i)
+
+        let styleElement
+
+        if (exerciseDifficulty === "light") {
+            styleElement = document.getElementById(`firstNumberCorrection${i}`)
+
+            if (exerciseData[i].secondNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === firstNumberAnswer) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+
+            styleElement = document.getElementById(`secondNumberCorrection${i}`)
+            if ((exerciseData[i].secondNumber.toString() === secondNumberAnswer && exerciseData[i].secondNumber.toString() !== firstNumberAnswer) || (exerciseData[i].thirdNumber.toString() === secondNumberAnswer && exerciseData[i].thirdNumber.toString() !== firstNumberAnswer)) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+        } else if (exerciseDifficulty === "medium") {
+            styleElement = document.getElementById(`firstNumberCorrection${i}`)
+            if (exerciseData[i].firstNumber.toString() === firstNumberAnswer || exerciseData[i].secondNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === firstNumberAnswer) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+
+            styleElement = document.getElementById(`secondNumberCorrection${i}`)
+            if ((exerciseData[i].firstNumber.toString() === secondNumberAnswer && exerciseData[i].firstNumber.toString() !== firstNumberAnswer) || (exerciseData[i].secondNumber.toString() === secondNumberAnswer && exerciseData[i].secondNumber.toString() !== firstNumberAnswer) || (exerciseData[i].thirdNumber.toString() === secondNumberAnswer && exerciseData[i].thirdNumber.toString() !== firstNumberAnswer)) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+
+            styleElement = document.getElementById(`thirdNumberCorrection${i}`)
+            if ((exerciseData[i].firstNumber.toString() === thirdNumberAnswer && exerciseData[i].firstNumber.toString() !== secondNumberAnswer && exerciseData[i].firstNumber.toString() !== firstNumberAnswer) || (exerciseData[i].secondNumber.toString() === thirdNumberAnswer && exerciseData[i].secondNumber.toString() !== secondNumberAnswer && exerciseData[i].secondNumber.toString() !== firstNumberAnswer) || (exerciseData[i].thirdNumber.toString() === thirdNumberAnswer && exerciseData[i].thirdNumber.toString() !== secondNumberAnswer && exerciseData[i].thirdNumber.toString() !== firstNumberAnswer)) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+        } else if (exerciseDifficulty === "hard") {
+            styleElement = document.getElementById(`firstNumberCorrection${i}`)
+            if (exerciseData[i].firstNumber.toString() === firstNumberAnswer || exerciseData[i].secondNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === firstNumberAnswer) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+
+            styleElement = document.getElementById(`secondNumberCorrection${i}`)
+            if ((exerciseData[i].firstNumber.toString() === secondNumberAnswer && exerciseData[i].firstNumber.toString() !== firstNumberAnswer) || (exerciseData[i].secondNumber.toString() === secondNumberAnswer && exerciseData[i].secondNumber.toString() !== firstNumberAnswer) || (exerciseData[i].thirdNumber.toString() === secondNumberAnswer && exerciseData[i].thirdNumber.toString() !== firstNumberAnswer)) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+
+            styleElement = document.getElementById(`thirdNumberCorrection${i}`)
+            if ((exerciseData[i].firstNumber.toString() === thirdNumberAnswer && exerciseData[i].firstNumber.toString() !== secondNumberAnswer && exerciseData[i].firstNumber.toString() !== firstNumberAnswer) || (exerciseData[i].secondNumber.toString() === thirdNumberAnswer && exerciseData[i].secondNumber.toString() !== secondNumberAnswer && exerciseData[i].secondNumber.toString() !== firstNumberAnswer) || (exerciseData[i].thirdNumber.toString() === thirdNumberAnswer && exerciseData[i].thirdNumber.toString() !== secondNumberAnswer && exerciseData[i].thirdNumber.toString() !== firstNumberAnswer)) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+
+            styleElement = document.getElementById(`fourthNumberCorrection${i}`)
+            if (exerciseData[i].firstNumber.toString() === fourthNumberAnswer || exerciseData[i].secondNumber.toString() === fourthNumberAnswer || exerciseData[i].thirdNumber.toString() === fourthNumberAnswer) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+
+            styleElement = document.getElementById(`fifthNumberCorrection${i}`)
+            if ((exerciseData[i].firstNumber.toString() === fifthNumberAnswer && exerciseData[i].firstNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].secondNumber.toString() === fifthNumberAnswer && exerciseData[i].secondNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].thirdNumber.toString() === fifthNumberAnswer && exerciseData[i].thirdNumber.toString() !== fourthNumberAnswer)) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+
+            styleElement = document.getElementById(`sixthNumberCorrection${i}`)
+            if ((exerciseData[i].firstNumber.toString() === fourthNumberAnswer && exerciseData[i].firstNumber.toString() !== thirdNumberAnswer) || (exerciseData[i].secondNumber.toString() === fourthNumberAnswer && exerciseData[i].secondNumber.toString() !== thirdNumberAnswer)) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+        }
+    }
+
+    let output = document.getElementById("associativeLawExercise")
+    output.style.display = "none"
+    let output1 = document.getElementById("associativeLawExerciseResults")
+    output1.style.display = "inherit"
+}
+
+function getExerciseAnswers(exerciseData, i) {
+    firstNumberAnswer = "0"
+    secondNumberAnswer = "0"
+    thirdNumberAnswer = "0"
+    fourthNumberAnswer = "0"
+
+    if (exerciseData[i].answerNumbers[0] !== undefined) {
+        firstNumberAnswer = exerciseData[i].answerNumbers[0].input
+    }
+    if (exerciseData[i].answerNumbers[1] !== undefined) {
+        secondNumberAnswer = exerciseData[i].answerNumbers[1].input
+    }
+    if (exerciseData[i].answerNumbers[2] !== undefined) {
+        thirdNumberAnswer = exerciseData[i].answerNumbers[2].input
+    }
+    if (exerciseData[i].answerNumbers[3] !== undefined) {
+        fourthNumberAnswer = exerciseData[i].answerNumbers[3].input
+    }
 }

@@ -21,6 +21,9 @@ function backToNavigation() {
 
     let lawExercise = document.getElementById("distributiveLawExercise")
     lawExercise.style.display = "none"
+
+    let lawExerciseCorrection = document.getElementById("distributiveLawExerciseResults")
+    lawExerciseCorrection.style.display = "none"
 }
 
 function createDistributivLawExercise() {
@@ -36,12 +39,11 @@ function createDistributivLawExercise() {
     if (exercise.exercises[exercise.exerciseNumber - 1] === undefined) {
         firstNumber = Math.floor(Math.random() * 20 + 5)
         secondNumber = Math.floor(Math.random() * 20 + 5)
+        thirdNumber = Math.floor(Math.random() * 20 + 5)
 
         while (secondNumber === firstNumber) {
             secondNumber = Math.floor(Math.random() * 20 + 5)
         }
-
-        thirdNumber = Math.floor(Math.random() * 20 + 5)
 
         while (thirdNumber === firstNumber || thirdNumber === secondNumber) {
             thirdNumber = Math.floor(Math.random() * 20 + 5)
@@ -102,6 +104,14 @@ function createDistributivLawExercise() {
     div.innerHTML = html
 }
 
+let firstNumberAnswer = "0"
+let secondNumberAnswer = "0"
+let thirdNumberAnswer = "0"
+let fourthNumberAnswer = "0"
+let fifthNumberAnswer = "0"
+let sixthNumberAnswer = "0"
+let seventhNumberAnswer = "0"
+
 function finishExercise() {
     let exercise = createExerciseObject(window.sessionStorage.getItem("exercise"))
     let exerciseDifficulty = exercise.difficulty
@@ -110,75 +120,64 @@ function finishExercise() {
     let exerciseData = exercise.exercises
 
     for (let i = 0; i < exercise.maxExerciseNumber; i++) {
-        let firstNumberAnswer = "0"
-        let secondNumberAnswer = "0"
-        let thirdNumberAnswer = "0"
-        let fourthNumberAnswer = "0"
-        let fifthNumberAnswer = "0"
-        let sixthNumberAnswer = "0"
-        let seventhNumberAnswer = "0"
+        getExerciseAnswers(exerciseData, i)
 
-        for (let iAnswer = 0; iAnswer < exerciseData[i].answerNumbers.length; iAnswer++) {
-            if (exerciseData[i].answerNumbers[iAnswer].index === 0) {
-                firstNumberAnswer = exerciseData[i].answerNumbers[iAnswer].input
-            }
-
-            if (exerciseData[i].answerNumbers[iAnswer].index === 1) {
-                secondNumberAnswer = exerciseData[i].answerNumbers[iAnswer].input
-            }
-
-            if (exerciseData[i].answerNumbers[iAnswer].index === 2) {
-                thirdNumberAnswer = exerciseData[i].answerNumbers[iAnswer].input
-            }
-
-            if (exerciseData[i].answerNumbers[iAnswer].index === 3) {
-                fourthNumberAnswer = exerciseData[i].answerNumbers[iAnswer].input
-            }
-
-            if (exerciseData[i].answerNumbers[iAnswer].index === 4) {
-                fifthNumberAnswer = exerciseData[i].answerNumbers[iAnswer].input
-            }
-
-            if (exerciseData[i].answerNumbers[iAnswer].index === 5) {
-                sixthNumberAnswer = exerciseData[i].answerNumbers[iAnswer].input
-            }
-
-            if (exerciseData[i].answerNumbers[iAnswer].index === 6) {
-                seventhNumberAnswer = exerciseData[i].answerNumbers[iAnswer].input
-            }
+        if (i / 5 === Math.round(i / 5)) {
+            html += `<div class="exerciseOutputSplit">`
         }
+
+        html += `<div class="oneExercise">`
+        html += `<div class="exerciseNameFeedback">`
+        html += `<p class="exerciseName">Aufgabe ${i + 1}</p>`
+        html += `<div class="exerciseFeedback">`
 
         if (exerciseDifficulty === "light") {
             if (firstNumberAnswer !== secondNumberAnswer) {
                 if ((exerciseData[i].firstNumber.toString() === firstNumberAnswer || exerciseData[i].firstNumber.toString() === secondNumberAnswer)) {
                     if ((exerciseData[i].thirdNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer)) {
-                        html += `<p> ${i}: Richtig</p>`
+                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/good.png"><p>Richtig</p>`
                     } else {
-                        html += `<p> ${i}: Teilweise Falsch</p>`
+                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
                     }
                 } else {
-                    html += `<p> ${i}: Falsch</p>`
+                    if ((exerciseData[i].thirdNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer)) {
+                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                    } else {
+                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
+                    }
                 }
             } else {
-                html += `<p> ${i}: Falsch</p>`
+                html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
             }
         } else if (exerciseDifficulty === "medium") {
             if (firstNumberAnswer !== secondNumberAnswer && thirdNumberAnswer !== fourthNumberAnswer) {
                 if ((exerciseData[i].firstNumber.toString() === firstNumberAnswer || exerciseData[i].firstNumber.toString() === secondNumberAnswer) && (exerciseData[i].firstNumber.toString() === thirdNumberAnswer || exerciseData[i].firstNumber.toString() === fourthNumberAnswer)) {
                     if (exerciseData[i].secondNumber.toString() === firstNumberAnswer || exerciseData[i].secondNumber.toString() === secondNumberAnswer || exerciseData[i].secondNumber.toString() === thirdNumberAnswer || exerciseData[i].secondNumber.toString() === fourthNumberAnswer) {
                         if (exerciseData[i].thirdNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer || exerciseData[i].thirdNumber.toString() === thirdNumberAnswer || exerciseData[i].thirdNumber.toString() === fourthNumberAnswer) {
-                            html += `<p> ${i}: Richtig</p>`
+                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/good.png"><p>Richtig</p>`
                         } else {
-                            html += `<p> ${i}: Teilweise Falsch</p>`
+                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
                         }
                     } else {
-                        html += `<p> ${i}: Teilweise Falsch</p>`
+                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
                     }
                 } else {
-                    html += `<p> ${i}: Falsch</p>`
+                    if (exerciseData[i].secondNumber.toString() === firstNumberAnswer || exerciseData[i].secondNumber.toString() === secondNumberAnswer || exerciseData[i].secondNumber.toString() === thirdNumberAnswer || exerciseData[i].secondNumber.toString() === fourthNumberAnswer) {
+                        if (exerciseData[i].thirdNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer || exerciseData[i].thirdNumber.toString() === thirdNumberAnswer || exerciseData[i].thirdNumber.toString() === fourthNumberAnswer) {
+                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        } else {
+                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        }
+                    } else {
+                        if (exerciseData[i].thirdNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer || exerciseData[i].thirdNumber.toString() === thirdNumberAnswer || exerciseData[i].thirdNumber.toString() === fourthNumberAnswer) {
+                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        } else {
+                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
+                        }
+                    }
                 }
             } else {
-                html += `<p> ${i}: Falsch</p>`
+                html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
             }
         } else if (exerciseDifficulty === "hard") {
             if (firstNumberAnswer !== secondNumberAnswer && firstNumberAnswer !== thirdNumberAnswer && secondNumberAnswer !== thirdNumberAnswer) {
@@ -189,34 +188,210 @@ function finishExercise() {
                                 if ((exerciseData[i].firstNumber.toString() === fourthNumberAnswer || exerciseData[i].firstNumber.toString() === fifthNumberAnswer) && (exerciseData[i].firstNumber.toString() === sixthNumberAnswer || exerciseData[i].firstNumber.toString() === seventhNumberAnswer)) {
                                     if (exerciseData[i].secondNumber.toString() === fourthNumberAnswer || exerciseData[i].secondNumber.toString() === fifthNumberAnswer || exerciseData[i].secondNumber.toString() === sixthNumberAnswer || exerciseData[i].secondNumber.toString() === seventhNumberAnswer) {
                                         if (exerciseData[i].thirdNumber.toString() === fourthNumberAnswer || exerciseData[i].thirdNumber.toString() === fifthNumberAnswer || exerciseData[i].thirdNumber.toString() === sixthNumberAnswer || exerciseData[i].thirdNumber.toString() === seventhNumberAnswer) {
-                                            html += `<p> ${i}: Richtig</p>`
+                                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/good.png"><p>Richtig</p>`
                                         } else {
-                                            html += `<p> ${i}: Teilweise Falsch</p>`
+                                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
                                         }
                                     } else {
-                                        html += `<p> ${i}: Teilweise Falsch</p>`
+                                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
                                     }
                                 } else {
-                                    html += `<p> ${i}: Teilweise Falsch</p>`
+                                    html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
                                 }
                             } else {
-                                html += `<p> ${i}: Teilweise Falsch</p>`
+                                html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
                             }
                         } else {
-                            html += `<p> ${i}: Teilweise Falsch</p>`
+                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
                         }
                     } else {
-                        html += `<p> ${i}: Teilweise Falsch</p>`
+                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
                     }
                 } else {
-                    html += `<p> ${i}: Falsch</p>`
+                    html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
                 }
             } else {
-                html += `<p> ${i}: Falsch</p>`
+                html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
+            }
+        }
+
+        html += `</div>`
+        html += `</div>`
+
+        html += `<div class="exerciseCorrection">`
+        if (exerciseDifficulty === "light") {
+            html += `<p>${exerciseData[i].firstNumber} ⋅ (${exerciseData[i].secondNumber} + ${exerciseData[i].thirdNumber}) = ${exerciseData[i].firstNumber} ⋅ ${exerciseData[i].secondNumber} + </p>`
+            html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+            html += `<p>⋅</p>`
+            html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+        } else if (exerciseDifficulty === "medium") {
+            html += `<p>${exerciseData[i].firstNumber} ⋅ (${exerciseData[i].secondNumber} + ${exerciseData[i].thirdNumber}) = </p>`
+            html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+            html += `<p>⋅</p>`
+            html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+            html += `<p>+</p>`
+            html += `<input value="${thirdNumberAnswer}" class='textField' disabled="disabled" type='text' id='thirdNumberCorrection${i}'/>`
+            html += `<p>⋅</p>`
+            html += `<input value="${fourthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fourthNumberCorrection${i}'/>`
+        } else if (exerciseDifficulty === "hard") {
+            html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+            html += `<p>⋅ (</p>`
+            html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+            html += `<p>+</p>`
+            html += `<input value="${thirdNumberAnswer}" class='textField' disabled="disabled" type='text' id='thirdNumberCorrection${i}'/>`
+            html += `<p>) =</p>`
+            html += `<input value="${fourthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fourthNumberCorrection${i}'/>`
+            html += `<p>⋅</p>`
+            html += `<input value="${fifthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fifthNumberCorrection${i}'/>`
+            html += `<p>+</p>`
+            html += `<input value="${sixthNumberAnswer}" class='textField' disabled="disabled" type='text' id='sixthNumberCorrection${i}'/>`
+            html += `<p>⋅</p>`
+            html += `<input value="${seventhNumberAnswer}" class='textField' disabled="disabled" type='text' id='seventhNumberCorrection${i}'/>`
+        }
+        html += `</div>`
+        html += `</div>`
+
+        if ((i + 1) / 5 === Math.round((i + 1) / 5)) {
+            html += "</div>"
+        }
+    }
+
+    let div = document.getElementById("exerciseResultsOut")
+    div.innerHTML = html
+
+    for (let i = 0; i < exercise.maxExerciseNumber; i++) {
+        getExerciseAnswers(exerciseData, i)
+
+        let styleElement
+
+        if (exerciseDifficulty === "light") {
+            styleElement = document.getElementById(`firstNumberCorrection${i}`)
+            if ((exerciseData[i].firstNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === firstNumberAnswer)) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+
+            styleElement = document.getElementById(`secondNumberCorrection${i}`)
+            if ((exerciseData[i].firstNumber.toString() === secondNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer)) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+        } else if (exerciseDifficulty === "medium") {
+            styleElement = document.getElementById(`firstNumberCorrection${i}`)
+            if ((exerciseData[i].firstNumber.toString() === firstNumberAnswer || exerciseData[i].secondNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === firstNumberAnswer)) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+
+            styleElement = document.getElementById(`secondNumberCorrection${i}`)
+            if (((exerciseData[i].firstNumber.toString() === secondNumberAnswer && exerciseData[i].firstNumber.toString() !== firstNumberAnswer) || (exerciseData[i].secondNumber.toString() === secondNumberAnswer && exerciseData[i].secondNumber.toString() !== firstNumberAnswer && exerciseData[i].thirdNumber.toString() !== firstNumberAnswer) || (exerciseData[i].thirdNumber.toString() === secondNumberAnswer && exerciseData[i].thirdNumber.toString() !== firstNumberAnswer && exerciseData[i].secondNumber.toString() !== firstNumberAnswer))) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+
+            styleElement = document.getElementById(`thirdNumberCorrection${i}`)
+            if (((exerciseData[i].firstNumber.toString() === thirdNumberAnswer) || (exerciseData[i].secondNumber.toString() === thirdNumberAnswer && exerciseData[i].secondNumber.toString() !== firstNumberAnswer && exerciseData[i].secondNumber.toString() !== secondNumberAnswer) || (exerciseData[i].thirdNumber.toString() === thirdNumberAnswer && exerciseData[i].thirdNumber.toString() !== firstNumberAnswer && exerciseData[i].thirdNumber.toString() !== secondNumberAnswer))) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+
+            styleElement = document.getElementById(`fourthNumberCorrection${i}`)
+            if (((exerciseData[i].firstNumber.toString() === fourthNumberAnswer && exerciseData[i].firstNumber.toString() !== thirdNumberAnswer) || (exerciseData[i].secondNumber.toString() === fourthNumberAnswer && exerciseData[i].secondNumber.toString() !== firstNumberAnswer && exerciseData[i].secondNumber.toString() !== secondNumberAnswer && exerciseData[i].secondNumber.toString() !== thirdNumberAnswer) || (exerciseData[i].thirdNumber.toString() === fourthNumberAnswer && exerciseData[i].thirdNumber.toString() !== firstNumberAnswer && exerciseData[i].thirdNumber.toString() !== secondNumberAnswer && exerciseData[i].thirdNumber.toString() !== thirdNumberAnswer))) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+        } else if (exerciseDifficulty === "hard") {
+            styleElement = document.getElementById(`firstNumberCorrection${i}`)
+            if ((exerciseData[i].firstNumber.toString() === firstNumberAnswer)) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+
+            styleElement = document.getElementById(`secondNumberCorrection${i}`)
+            if ((exerciseData[i].secondNumber.toString() === secondNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer)) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+
+            styleElement = document.getElementById(`thirdNumberCorrection${i}`)
+            if ((exerciseData[i].secondNumber.toString() === thirdNumberAnswer && exerciseData[i].secondNumber.toString() !== secondNumberAnswer) || (exerciseData[i].thirdNumber.toString() === thirdNumberAnswer && exerciseData[i].thirdNumber.toString() !== secondNumberAnswer)) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+
+            styleElement = document.getElementById(`fourthNumberCorrection${i}`)
+            if ((exerciseData[i].firstNumber.toString() === fourthNumberAnswer || exerciseData[i].secondNumber.toString() === fourthNumberAnswer || exerciseData[i].thirdNumber.toString() === fourthNumberAnswer)) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+
+            styleElement = document.getElementById(`fifthNumberCorrection${i}`)
+            if (((exerciseData[i].firstNumber.toString() === fifthNumberAnswer && exerciseData[i].firstNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].secondNumber.toString() === fifthNumberAnswer && exerciseData[i].secondNumber.toString() !== fourthNumberAnswer && exerciseData[i].thirdNumber.toString() !== fourthNumberAnswer) || (exerciseData[i].thirdNumber.toString() === fifthNumberAnswer && exerciseData[i].thirdNumber.toString() !== fourthNumberAnswer && exerciseData[i].secondNumber.toString() !== fourthNumberAnswer))) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+
+            styleElement = document.getElementById(`sixthNumberCorrection${i}`)
+            if (((exerciseData[i].firstNumber.toString() === sixthNumberAnswer) || (exerciseData[i].secondNumber.toString() === sixthNumberAnswer && exerciseData[i].secondNumber.toString() !== fourthNumberAnswer && exerciseData[i].secondNumber.toString() !== fifthNumberAnswer) || (exerciseData[i].thirdNumber.toString() === sixthNumberAnswer && exerciseData[i].thirdNumber.toString() !== fourthNumberAnswer && exerciseData[i].thirdNumber.toString() !== fifthNumberAnswer))) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
+            }
+
+            styleElement = document.getElementById(`seventhNumberCorrection${i}`)
+            if (((exerciseData[i].firstNumber.toString() === seventhNumberAnswer && exerciseData[i].firstNumber.toString() !== sixthNumberAnswer) || (exerciseData[i].secondNumber.toString() === seventhNumberAnswer && exerciseData[i].secondNumber.toString() !== fourthNumberAnswer && exerciseData[i].secondNumber.toString() !== fifthNumberAnswer && exerciseData[i].secondNumber.toString() !== sixthNumberAnswer) || (exerciseData[i].thirdNumber.toString() === seventhNumberAnswer && exerciseData[i].thirdNumber.toString() !== fourthNumberAnswer && exerciseData[i].thirdNumber.toString() !== fifthNumberAnswer && exerciseData[i].thirdNumber.toString() !== sixthNumberAnswer))) {
+                styleElement.style.backgroundColor = "#00cc00"
+            } else {
+                styleElement.style.backgroundColor = "#cc0000"
             }
         }
     }
 
-    let div = document.getElementById("exercise")
-    div.innerHTML = html
+    let output = document.getElementById("distributiveLawExercise")
+    output.style.display = "none"
+    let output1 = document.getElementById("distributiveLawExerciseResults")
+    output1.style.display = "inherit"
+}
+
+function getExerciseAnswers(exerciseData, i) {
+    firstNumberAnswer = "0"
+    secondNumberAnswer = "0"
+    thirdNumberAnswer = "0"
+    fourthNumberAnswer = "0"
+    fifthNumberAnswer = "0"
+    sixthNumberAnswer = "0"
+    seventhNumberAnswer = "0"
+
+    if (exerciseData[i].answerNumbers[0] !== undefined) {
+        firstNumberAnswer = exerciseData[i].answerNumbers[0].input
+    }
+    if (exerciseData[i].answerNumbers[1] !== undefined) {
+        secondNumberAnswer = exerciseData[i].answerNumbers[1].input
+    }
+    if (exerciseData[i].answerNumbers[2] !== undefined) {
+        thirdNumberAnswer = exerciseData[i].answerNumbers[2].input
+    }
+    if (exerciseData[i].answerNumbers[3] !== undefined) {
+        fourthNumberAnswer = exerciseData[i].answerNumbers[3].input
+    }
+    if (exerciseData[i].answerNumbers[4] !== undefined) {
+        fifthNumberAnswer = exerciseData[i].answerNumbers[4].input
+    }
+    if (exerciseData[i].answerNumbers[5] !== undefined) {
+        sixthNumberAnswer = exerciseData[i].answerNumbers[5].input
+    }
+    if (exerciseData[i].answerNumbers[6] !== undefined) {
+        seventhNumberAnswer = exerciseData[i].answerNumbers[6].input
+    }
 }
