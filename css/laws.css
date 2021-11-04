@@ -6,4 +6,9 @@ div#generalInformation {
     padding: 2.5rem;
     border: #666666 solid 2px;
     border-radius: 15px;
+    line-height: 1.8;
+}
+
+div#generalInformation p.headline {
+    line-height: 1.4;
 }

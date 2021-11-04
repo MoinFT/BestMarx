@@ -2,13 +2,42 @@ div#explanation {
     float: left;
     margin-left: 25rem;
     margin-top: 5rem;
-    width: 70rem;
+    width: 115rem;
 }
 
-p.explanationText {
+div.explanationText {
     margin-bottom: 0;
-    width: 100%;
+    width: 50rem;
     float: left;
+    line-height: 1.8;
+}
+
+div.explanationText p {
+    margin: 0;
+    float: left;
+    line-height: 1.8;
+}
+
+div.explanationText p.headline {
+    margin-top: 2.5rem;
+}
+
+div.explanationExample {
+    margin-bottom: 0;
+    width: 60rem;
+    float: left;
+    line-height: 1.8;
+    margin-left: 5rem;
+}
+
+div.explanationExample p {
+    margin: 0;
+}
+
+div.explanationExample p.headline {
+    margin-top: 2.5rem;
+    float: left;
+    width: 100%;
 }
 
 div#explanation div.leftSide {

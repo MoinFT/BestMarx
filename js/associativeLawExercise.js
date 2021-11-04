@@ -593,21 +593,91 @@ function finishExercise() {
             }
         } else if (exerciseDifficulty === "hard") {
             if (additionTask === 1) {
-                html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
-                html += `<p> ⋅ </p>`
-                html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
-                html += `<p> = </p>`
-                html += `<input value="${thirdNumberAnswer}" class='textField' disabled="disabled" type='text' id='thirdNumberCorrection${i}'/>`
-                html += `<p> ⋅ </p>`
-                html += `<input value="${fourthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fourthNumberCorrection${i}'/>`
+                switch (bracketIndex) {
+                    case 1:
+                        html += `<p>(</p>`
+                        html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                        html += `<p> + </p>`
+                        html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                        html += `<p>) + </p>`
+                        html += `<input value="${thirdNumberAnswer}" class='textField' disabled="disabled" type='text' id='thirdNumberCorrection${i}'/>`
+                        html += `<p> = </p>`
+                        html += `<input value="${fourthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fourthNumberCorrection${i}'/>`
+                        html += `<p> + </p>`
+                        html += `<input value="${fifthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fifthNumberCorrection${i}'/>`
+                        html += `<p> + </p>`
+                        html += `<input value="${sixthNumberAnswer}" class='textField' disabled="disabled" type='text' id='sixthNumberCorrection${i}'/>`
+                        break
+                    case 2:
+                        html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                        html += `<p> + (</p>`
+                        html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                        html += `<p> + </p>`
+                        html += `<input value="${thirdNumberAnswer}" class='textField' disabled="disabled" type='text' id='thirdNumberCorrection${i}'/>`
+                        html += `<p>) = </p>`
+                        html += `<input value="${fourthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fourthNumberCorrection${i}'/>`
+                        html += `<p> + </p>`
+                        html += `<input value="${fifthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fifthNumberCorrection${i}'/>`
+                        html += `<p> + </p>`
+                        html += `<input value="${sixthNumberAnswer}" class='textField' disabled="disabled" type='text' id='sixthNumberCorrection${i}'/>`
+                        break
+                    case 3:
+                        html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                        html += `<p> + </p>`
+                        html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                        html += `<p> + </p>`
+                        html += `<input value="${thirdNumberAnswer}" class='textField' disabled="disabled" type='text' id='thirdNumberCorrection${i}'/>`
+                        html += `<p> = (</p>`
+                        html += `<input value="${fourthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fourthNumberCorrection${i}'/>`
+                        html += `<p> + </p>`
+                        html += `<input value="${fifthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fifthNumberCorrection${i}'/>`
+                        html += `<p>) + </p>`
+                        html += `<input value="${sixthNumberAnswer}" class='textField' disabled="disabled" type='text' id='sixthNumberCorrection${i}'/>`
+                        break
+                }
             } else {
-                html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
-                html += `<p> + </p>`
-                html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
-                html += `<p> = </p>`
-                html += `<input value="${thirdNumberAnswer}" class='textField' disabled="disabled" type='text' id='thirdNumberCorrection${i}'/>`
-                html += `<p> + </p>`
-                html += `<input value="${fourthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fourthNumberCorrection${i}'/>`
+                switch (bracketIndex) {
+                    case 1:
+                        html += `<p>(</p>`
+                        html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                        html += `<p> ⋅ </p>`
+                        html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                        html += `<p>) ⋅ </p>`
+                        html += `<input value="${thirdNumberAnswer}" class='textField' disabled="disabled" type='text' id='thirdNumberCorrection${i}'/>`
+                        html += `<p> = </p>`
+                        html += `<input value="${fourthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fourthNumberCorrection${i}'/>`
+                        html += `<p> ⋅ </p>`
+                        html += `<input value="${fifthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fifthNumberCorrection${i}'/>`
+                        html += `<p> ⋅ </p>`
+                        html += `<input value="${sixthNumberAnswer}" class='textField' disabled="disabled" type='text' id='sixthNumberCorrection${i}'/>`
+                        break
+                    case 2:
+                        html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                        html += `<p> ⋅ (</p>`
+                        html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                        html += `<p> ⋅ </p>`
+                        html += `<input value="${thirdNumberAnswer}" class='textField' disabled="disabled" type='text' id='thirdNumberCorrection${i}'/>`
+                        html += `<p>) = </p>`
+                        html += `<input value="${fourthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fourthNumberCorrection${i}'/>`
+                        html += `<p> ⋅ </p>`
+                        html += `<input value="${fifthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fifthNumberCorrection${i}'/>`
+                        html += `<p> ⋅ </p>`
+                        html += `<input value="${sixthNumberAnswer}" class='textField' disabled="disabled" type='text' id='sixthNumberCorrection${i}'/>`
+                        break
+                    case 3:
+                        html += `<input value="${firstNumberAnswer}" class='textField' disabled="disabled" type='text' id='firstNumberCorrection${i}'/>`
+                        html += `<p> ⋅ </p>`
+                        html += `<input value="${secondNumberAnswer}" class='textField' disabled="disabled" type='text' id='secondNumberCorrection${i}'/>`
+                        html += `<p> ⋅ </p>`
+                        html += `<input value="${thirdNumberAnswer}" class='textField' disabled="disabled" type='text' id='thirdNumberCorrection${i}'/>`
+                        html += `<p> = (</p>`
+                        html += `<input value="${fourthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fourthNumberCorrection${i}'/>`
+                        html += `<p> ⋅ </p>`
+                        html += `<input value="${fifthNumberAnswer}" class='textField' disabled="disabled" type='text' id='fifthNumberCorrection${i}'/>`
+                        html += `<p>) ⋅ </p>`
+                        html += `<input value="${sixthNumberAnswer}" class='textField' disabled="disabled" type='text' id='sixthNumberCorrection${i}'/>`
+                        break
+                }
             }
         }
         html += `</div>`
@@ -707,10 +777,11 @@ function finishExercise() {
         }
     }
 
-    let output = document.getElementById("associativeLawExercise")
+    let output;
+    output = document.getElementById("associativeLawExercise")
     output.style.display = "none"
-    let output1 = document.getElementById("associativeLawExerciseResults")
-    output1.style.display = "inherit"
+    output = document.getElementById("associativeLawExerciseResults")
+    output.style.display = "inherit"
 }
 
 function getExerciseAnswers(exerciseData, i) {
@@ -718,6 +789,8 @@ function getExerciseAnswers(exerciseData, i) {
     secondNumberAnswer = "0"
     thirdNumberAnswer = "0"
     fourthNumberAnswer = "0"
+    fifthNumberAnswer = "0"
+    sixthNumberAnswer = "0"
 
     if (exerciseData[i].answerNumbers[0] !== undefined) {
         firstNumberAnswer = exerciseData[i].answerNumbers[0].input
@@ -730,5 +803,11 @@ function getExerciseAnswers(exerciseData, i) {
     }
     if (exerciseData[i].answerNumbers[3] !== undefined) {
         fourthNumberAnswer = exerciseData[i].answerNumbers[3].input
+    }
+    if (exerciseData[i].answerNumbers[4] !== undefined) {
+        fifthNumberAnswer = exerciseData[i].answerNumbers[4].input
+    }
+    if (exerciseData[i].answerNumbers[5] !== undefined) {
+        sixthNumberAnswer = exerciseData[i].answerNumbers[5].input
     }
 }
