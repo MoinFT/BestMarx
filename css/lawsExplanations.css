@@ -16,10 +16,12 @@ div.explanationText p {
     margin: 0;
     float: left;
     line-height: 1.8;
+    font-family: "IBM Plex Sans", sans-serif;
 }
 
 div.explanationText p.headline {
     margin-top: 2.5rem;
+    font-family: "IBM Plex Mono", sans-serif;
 }
 
 div.explanationExample {
@@ -32,6 +34,7 @@ div.explanationExample {
 
 div.explanationExample p {
     margin: 0;
+    font-family: "IBM Plex Sans", sans-serif;
 }
 
 div.explanationExample p.headline {

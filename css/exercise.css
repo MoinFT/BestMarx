@@ -6,6 +6,8 @@ div#exerciseArea {
 
 div#exerciseArea p#exerciseDefinition {
     margin: 0;
+    font-family: "IBM Plex Sans", sans-serif;
+    line-height: 1.75;
 }
 
 div#exerciseProgress {

@@ -26,6 +26,13 @@ function backToNavigation() {
     lawExerciseCorrection.style.display = "none"
 }
 
+let firstNumberAnswer = "0"
+let secondNumberAnswer = "0"
+let thirdNumberAnswer = "0"
+let fourthNumberAnswer = "0"
+let fifthNumberAnswer = "0"
+let sixthNumberAnswer = "0"
+
 function createAssociativeLawExercise() {
     let exercise = createExerciseObject(window.sessionStorage.getItem("exercise"))
     let exerciseDifficulty = exercise.difficulty
@@ -73,11 +80,44 @@ function createAssociativeLawExercise() {
 
         additionTask = exercise.exercises[exercise.exerciseNumber - 1].additionTask
         bracketIndex = exercise.exercises[exercise.exerciseNumber - 1].bracketIndex
+
+        getExerciseAnswers(exercise.exercises, exercise.exerciseNumber - 1)
     }
 
     console.log(firstNumber)
     console.log(secondNumber)
     console.log(thirdNumber)
+
+    let firstNumberText = ""
+    let secondNumberText = ""
+    let thirdNumberText = ""
+    let fourthNumberText = ""
+    let fifthNumberText = ""
+    let sixthNumberText = ""
+
+    if (firstNumberAnswer !== "0") {
+        firstNumberText = firstNumberAnswer.toString()
+    }
+
+    if (secondNumberAnswer !== "0") {
+        secondNumberText = secondNumberAnswer.toString()
+    }
+
+    if (thirdNumberAnswer !== "0") {
+        thirdNumberText = thirdNumberAnswer.toString()
+    }
+
+    if (fourthNumberAnswer !== "0") {
+        fourthNumberText = fourthNumberAnswer.toString()
+    }
+
+    if (fifthNumberAnswer !== "0") {
+        fifthNumberText = fifthNumberAnswer.toString()
+    }
+
+    if (sixthNumberAnswer !== "0") {
+        sixthNumberText = sixthNumberAnswer.toString()
+    }
 
     let html = ""
 
@@ -87,21 +127,21 @@ function createAssociativeLawExercise() {
             switch (bracketIndex) {
                 case 1:
                     html += `<p>(${firstNumber} + ${secondNumber}) + ${thirdNumber} = ${firstNumber} + </p>`
-                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
                     html += `<p> + </p>`
-                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
                     break
                 case 2:
                     html += `<p>(${firstNumber} + ${secondNumber}) + ${thirdNumber} = (${firstNumber} + </p>`
-                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
                     html += `<p>) + </p>`
-                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
                     break
                 case 3:
                     html += `<p>(${firstNumber} + ${secondNumber}) + ${thirdNumber} = ${firstNumber} + (</p>`
-                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
                     html += `<p> + </p>`
-                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
                     html += `<p>)</p>`
                     break
             }
@@ -109,21 +149,21 @@ function createAssociativeLawExercise() {
             switch (bracketIndex) {
                 case 1:
                     html += `<p>(${firstNumber} ⋅ ${secondNumber}) ⋅ ${thirdNumber} = ${firstNumber} ⋅ </p>`
-                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
                     html += `<p> ⋅ </p>`
-                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
                     break
                 case 2:
                     html += `<p>(${firstNumber} ⋅ ${secondNumber}) ⋅ ${thirdNumber} = (${firstNumber} ⋅ </p>`
-                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
                     html += `<p>) ⋅ </p>`
-                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
                     break
                 case 3:
                     html += `<p>(${firstNumber} ⋅ ${secondNumber}) ⋅ ${thirdNumber} = ${firstNumber} ⋅ (</p>`
-                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
                     html += `<p> ⋅ </p>`
-                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
                     html += `<p>)</p>`
                     break
             }
@@ -133,54 +173,54 @@ function createAssociativeLawExercise() {
             switch (bracketIndex) {
                 case 1:
                     html += `<p>(${firstNumber} + ${secondNumber}) + ${thirdNumber} = </p>`
-                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
                     html += `<p> + </p>`
-                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
                     html += `<p> + </p>`
-                    html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${thirdNumberText}" oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
                     break
                 case 2:
                     html += `<p>${firstNumber} + (${secondNumber} + ${thirdNumber}) = </p>`
-                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
                     html += `<p> + </p>`
-                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
                     html += `<p> + </p>`
-                    html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${thirdNumberText}" oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
                     break
                 case 3:
                     html += `<p>${firstNumber} + ${secondNumber} + ${thirdNumber} = (</p>`
-                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
                     html += `<p> + </p>`
-                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
                     html += `<p>) + </p>`
-                    html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${thirdNumberText}" oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
                     break
             }
         } else {
             switch (bracketIndex) {
                 case 1:
                     html += `<p>(${firstNumber} ⋅ ${secondNumber}) ⋅ ${thirdNumber} = </p>`
-                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
                     html += `<p> ⋅ </p>`
-                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
                     html += `<p> ⋅ </p>`
-                    html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${thirdNumberText}" oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
                     break
                 case 2:
                     html += `<p>${firstNumber} ⋅ (${secondNumber} ⋅ ${thirdNumber}) = </p>`
-                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
                     html += `<p> ⋅ </p>`
-                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
                     html += `<p> ⋅ </p>`
-                    html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${thirdNumberText}" oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
                     break
                 case 3:
                     html += `<p>${firstNumber} ⋅ ${secondNumber} ⋅ ${thirdNumber} = (</p>`
-                    html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
                     html += `<p> ⋅ </p>`
-                    html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
                     html += `<p>) ⋅ </p>`
-                    html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                    html += `<input value="${thirdNumberText}" oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
                     break
             }
         }
@@ -188,58 +228,58 @@ function createAssociativeLawExercise() {
         if (additionTask === 1) {
             if (Math.floor(Math.random() + 0.5) === 1) {
                 html += `<p>(</p>`
-                html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
                 html += `<p> + </p>`
-                html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
                 html += `<p>) + </p>`
-                html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                html += `<input value="${thirdNumberText}" oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
                 html += `<p> = </p>`
-                html += `<input oninput="getNumber(3)" class='textField' type='text' id='fourthNumberAnswer' maxlength='2'/>`
+                html += `<input value="${fourthNumberText}" oninput="getNumber(3)" class='textField' type='text' id='fourthNumberAnswer' maxlength='2'/>`
                 html += `<p> + </p>`
-                html += `<input oninput="getNumber(4)" class='textField' type='text' id='fifthNumberAnswer' maxlength='2'/>`
+                html += `<input value="${fifthNumberText}" oninput="getNumber(4)" class='textField' type='text' id='fifthNumberAnswer' maxlength='2'/>`
                 html += `<p> + </p>`
-                html += `<input oninput="getNumber(5)" class='textField' type='text' id='sixthNumberAnswer' maxlength='2'/>`
+                html += `<input value="${sixthNumberText}" oninput="getNumber(5)" class='textField' type='text' id='sixthNumberAnswer' maxlength='2'/>`
             } else {
                 html += `<p></p>`
-                html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
                 html += `<p> + (</p>`
-                html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
                 html += `<p> + </p>`
-                html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                html += `<input value="${thirdNumberText}" oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
                 html += `<p>) = </p>`
-                html += `<input oninput="getNumber(3)" class='textField' type='text' id='fourthNumberAnswer' maxlength='2'/>`
+                html += `<input value="${fourthNumberText}" oninput="getNumber(3)" class='textField' type='text' id='fourthNumberAnswer' maxlength='2'/>`
                 html += `<p> + </p>`
-                html += `<input oninput="getNumber(4)" class='textField' type='text' id='fifthNumberAnswer' maxlength='2'/>`
+                html += `<input value="${fifthNumberText}" oninput="getNumber(4)" class='textField' type='text' id='fifthNumberAnswer' maxlength='2'/>`
                 html += `<p> + </p>`
-                html += `<input oninput="getNumber(5)" class='textField' type='text' id='sixthNumberAnswer' maxlength='2'/>`
+                html += `<input value="${sixthNumberText}" oninput="getNumber(5)" class='textField' type='text' id='sixthNumberAnswer' maxlength='2'/>`
             }
         } else {
             if (Math.floor(Math.random() + 0.5) === 1) {
                 html += `<p>(</p>`
-                html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
                 html += `<p> ⋅ </p>`
-                html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
                 html += `<p>) ⋅ </p>`
-                html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                html += `<input value="${thirdNumberText}" oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
                 html += `<p> = </p>`
-                html += `<input oninput="getNumber(3)" class='textField' type='text' id='fourthNumberAnswer' maxlength='2'/>`
+                html += `<input value="${fourthNumberText}" oninput="getNumber(3)" class='textField' type='text' id='fourthNumberAnswer' maxlength='2'/>`
                 html += `<p> ⋅ </p>`
-                html += `<input oninput="getNumber(4)" class='textField' type='text' id='fifthNumberAnswer' maxlength='2'/>`
+                html += `<input value="${fifthNumberText}" oninput="getNumber(4)" class='textField' type='text' id='fifthNumberAnswer' maxlength='2'/>`
                 html += `<p> ⋅ </p>`
-                html += `<input oninput="getNumber(5)" class='textField' type='text' id='sixthNumberAnswer' maxlength='2'/>`
+                html += `<input value="${sixthNumberText}" oninput="getNumber(5)" class='textField' type='text' id='sixthNumberAnswer' maxlength='2'/>`
             } else {
                 html += `<p></p>`
-                html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
                 html += `<p> ⋅ (</p>`
-                html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+                html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
                 html += `<p> ⋅ </p>`
-                html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+                html += `<input value="${thirdNumberText}" oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
                 html += `<p>) = </p>`
-                html += `<input oninput="getNumber(3)" class='textField' type='text' id='fourthNumberAnswer' maxlength='2'/>`
+                html += `<input value="${fourthNumberText}" oninput="getNumber(3)" class='textField' type='text' id='fourthNumberAnswer' maxlength='2'/>`
                 html += `<p> ⋅ </p>`
-                html += `<input oninput="getNumber(4)" class='textField' type='text' id='fifthNumberAnswer' maxlength='2'/>`
+                html += `<input value="${fifthNumberText}" oninput="getNumber(4)" class='textField' type='text' id='fifthNumberAnswer' maxlength='2'/>`
                 html += `<p> ⋅ </p>`
-                html += `<input oninput="getNumber(5)" class='textField' type='text' id='sixthNumberAnswer' maxlength='2'/>`
+                html += `<input value="${sixthNumberText}" oninput="getNumber(5)" class='textField' type='text' id='sixthNumberAnswer' maxlength='2'/>`
             }
         }
     }
@@ -247,13 +287,6 @@ function createAssociativeLawExercise() {
 
     div.innerHTML = html
 }
-
-let firstNumberAnswer = "0"
-let secondNumberAnswer = "0"
-let thirdNumberAnswer = "0"
-let fourthNumberAnswer = "0"
-let fifthNumberAnswer = "0"
-let sixthNumberAnswer = "0"
 
 function finishExercise() {
     let exercise = createExerciseObject(window.sessionStorage.getItem("exercise"))

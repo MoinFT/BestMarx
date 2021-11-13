@@ -1,0 +1,19 @@
+section {
+    height: auto;
+    position: relative;
+}
+
+div.section {
+    height: auto;
+}
+
+div.backNavigation {
+    position: fixed;
+}
+
+div#imprintContent {
+    margin-left: 25rem;
+    margin-top: 5rem;
+    width: 150rem;
+    margin-bottom: 5rem;
+}

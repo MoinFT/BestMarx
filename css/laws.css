@@ -9,6 +9,11 @@ div#generalInformation {
     line-height: 1.8;
 }
 
+div#generalInformation p {
+    font-family: "IBM Plex Sans", sans-serif;
+}
+
 div#generalInformation p.headline {
     line-height: 1.4;
+    font-family: "IBM Plex Mono", sans-serif;
 }

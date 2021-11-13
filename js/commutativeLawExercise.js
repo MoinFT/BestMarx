@@ -65,10 +65,33 @@ function createCommutativeLawExercise() {
 
         additionTask = exercise.exercises[exercise.exerciseNumber - 1].additionTask
         firstFree = exercise.exercises[exercise.exerciseNumber - 1].firstFree
+
+        getExerciseAnswers(exercise.exercises, exercise.exerciseNumber - 1)
     }
 
     console.log(firstNumber)
     console.log(secondNumber)
+
+    let firstNumberText = ""
+    let secondNumberText = ""
+    let thirdNumberText = ""
+    let fourthNumberText = ""
+
+    if (firstNumberAnswer !== "0") {
+        firstNumberText = firstNumberAnswer.toString()
+    }
+
+    if (secondNumberAnswer !== "0") {
+        secondNumberText = secondNumberAnswer.toString()
+    }
+
+    if (thirdNumberAnswer !== "0") {
+        thirdNumberText = thirdNumberAnswer.toString()
+    }
+
+    if (fourthNumberAnswer !== "0") {
+        fourthNumberText = fourthNumberAnswer.toString()
+    }
 
     let html = ""
 
@@ -77,53 +100,51 @@ function createCommutativeLawExercise() {
         if (additionTask === 1) {
             if (firstFree === 1) {
                 html += `<p>${firstNumber} + ${secondNumber} = </p>`
-                html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
                 html += `<p> + ${firstNumber}</p>`
             } else {
                 html += `<p>${firstNumber} + ${secondNumber} = ${secondNumber} + </p>`
-                html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
             }
         } else {
             if (firstFree === 1) {
                 html += `<p>${firstNumber} ⋅ ${secondNumber} = </p>`
-                html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
                 html += `<p> ⋅ ${firstNumber}</p>`
             } else {
                 html += `<p>${firstNumber} ⋅ ${secondNumber} = ${secondNumber} ⋅ </p>`
-                html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+                html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
             }
         }
     } else if (exerciseDifficulty === "medium") {
         if (additionTask === 1) {
             html += `<p>${firstNumber} + ${secondNumber} = </p>`
-            html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+            html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
             html += `<p> + </p>`
-            html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
-
+            html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
         } else {
             html += `<p>${firstNumber} ⋅ ${secondNumber} = </p>`
-            html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+            html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
             html += `<p> ⋅ </p>`
-            html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+            html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
         }
     } else if (exerciseDifficulty === "hard") {
         if (additionTask === 1) {
-            html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+            html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
             html += `<p> + </p>`
-            html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+            html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
             html += `<p> = </p>`
-            html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+            html += `<input value="${thirdNumberText}" oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
             html += `<p> + </p>`
-            html += `<input oninput="getNumber(3)" class='textField' type='text' id='fourthNumberAnswer' maxlength='2'/>`
-
+            html += `<input value="${fourthNumberText}" oninput="getNumber(3)" class='textField' type='text' id='fourthNumberAnswer' maxlength='2'/>`
         } else {
-            html += `<input oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
+            html += `<input value="${firstNumberText}" oninput="getNumber(0)" class='textField' type='text' id='firstNumberAnswer' maxlength='2'/>`
             html += `<p> ⋅ </p>`
-            html += `<input oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
+            html += `<input value="${secondNumberText}" oninput="getNumber(1)" class='textField' type='text' id='secondNumberAnswer' maxlength='2'/>`
             html += `<p> = </p>`
-            html += `<input oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
+            html += `<input value="${thirdNumberText}" oninput="getNumber(2)" class='textField' type='text' id='thirdNumberAnswer' maxlength='2'/>`
             html += `<p> ⋅ </p>`
-            html += `<input oninput="getNumber(3)" class='textField' type='text' id='fourthNumberAnswer' maxlength='2'/>`
+            html += `<input value="${fourthNumberText}" oninput="getNumber(3)" class='textField' type='text' id='fourthNumberAnswer' maxlength='2'/>`
         }
     }
     html += "</div>"

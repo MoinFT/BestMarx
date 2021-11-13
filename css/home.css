@@ -16,21 +16,3 @@ div#homeNavigation ul li a {
     display: block;
     text-align: center;
 }
-
-div#projectExplanation {
-    width: 65rem;
-    height: 40rem;
-    float: right;
-
-    margin: 7.5rem 12.5rem 0 0;
-    border-radius: 1rem;
-    border: #999999 1px solid;
-    background-color: #444444;
-    padding: 5rem;
-    box-shadow: 0.5rem 0.5rem 0.5rem rgba(25, 25, 25, 0.7);
-}
-
-div#projectExplanation img {
-    height: 25rem;
-    float: right;
-}
