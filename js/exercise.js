@@ -148,6 +148,7 @@ function createExerciseDataObject(exerciseData) {
     exerciseObject = Object.assign(
         {
             exerciseNumber: 0,
+            exerciseTextNumber: 0,
             firstNumber: 0,
             secondNumber: 0,
             thirdNumber: 0,

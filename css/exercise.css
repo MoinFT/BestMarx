@@ -1,7 +1,21 @@
-div#exerciseArea {
-    width: 60rem;
+div#exerciseRedPanda {
+    height: 22.5rem;
     margin: 7.5rem 0 0 7.5rem;
     float: left;
+}
+
+div#exerciseRedPanda img {
+    height: 100%;
+}
+
+div#exerciseArea {
+    width: 60rem;
+    height: 22.5rem;
+    margin: 7.5rem 0 0 7.5rem;
+    float: left;
+
+    align-items: center;
+    display: flex;
 }
 
 div#exerciseArea p#exerciseDefinition {
@@ -224,4 +238,17 @@ div.exerciseFeedback p {
 div.exerciseFeedback img {
     height: 100%;
     margin-right: 1rem;
+}
+
+div#exerciseResultsOut {
+    float: left;
+}
+
+div#resultRedPanda {
+    height: 25rem;
+    float: left;
+}
+
+div#resultRedPanda img {
+    height: 100%;
 }

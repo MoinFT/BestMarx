@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "exerciseType": "none",
+      "exerciseOperator": "+",
+      "exerciseDefinition": [
+        "Ein Freund von dir hat seinen Anhänger mit 2 Taschen gepackt. Die erste Tasche wiegt ",
+        " Kilogramm und die zweite Tasche wiegt ",
+        " Kilogramm.<br>Erstelle einen Term um das Gesamtgewicht zu berechnen.<br>Zeige, dass es noch eine zweite Möglichkeit für das zusammen rechnen gibt."
+      ]
+    },
+    {
+      "exerciseType": "none",
+      "exerciseOperator": "+",
+      "exerciseDefinition": [
+        "2 Autos werden bei der Auffahrt auf eine Fähre gewogen, das erste Auto wiegt ",
+        " Tonnen und das zweite Auto wiegt ",
+        " Tonnen.<br>Erstelle einen Term um das Gesamtgewicht zu berechnen.<br>Zeige, dass es noch eine zweite Möglichkeit für das zusammen rechnen gibt."
+      ]
+    }
+  ],
+  [
+    {
+      "exerciseType": "none",
+      "exerciseOperator": "*",
+      "exerciseDefinition": [
+        "Eine Autofirma verkauft Autos ins Ausland, sie geben an, dass ",
+        " Autos auf einem Schiff sind und es ",
+        " Schiffe.<br>Erstelle einen Term um die Anzahl der Autos zu berechnen.<br>Zeige, dass auch ",
+        " Schiffe geben kann und ",
+        " Autos auf einem Schiff stehen."
+      ]
+    },
+    {
+      "exerciseType": "none",
+      "exerciseOperator": "*",
+      "exerciseDefinition": [
+        "Paul möchte in seinem Garten Rollenrasenstreifen mit einer Breite von einem Meter auslegen. Dafür braucht er ",
+        " Rollrasenstreifen mit einer Länge von ",
+        " Metern.<br>Erstelle einen Term um die Fläche des Gartens zu berechnen.<br>Zeige, dass er auch ",
+        " Rollrasenstreifen nutzen kann mit einer Länge von ",
+        " Metern."
+      ]
+    }
+  ]
+]

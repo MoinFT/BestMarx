@@ -1,3 +1,5 @@
+const exerciseDefinition = JSON.parse('[{"exerciseType": "none","exerciseDefinition": ["Du möchtest "," Personen einen Bananen-Apfel Salat machen, für jede Portion benötigst du "," Äpfel und "," Bananen.<br>Erstelle einen Term um die Menge der Früchte zu berechnen.<br>Stelle den Term um, um ihn leichter rechnen zu können."]},{"exerciseType": "addOne","exerciseDefinition": ["Um einen Kuchen für dich und "," Freunde von deiner Oma zu bekommen musst du die Zutaten besorgen. Für eine Portion benötigst du ","Gramm Bananen und ","Gramm Haferflocken.<br>Erstelle einen Term um das Gewicht deiner Einkaufstüte zu berechnen.<br>Stelle den Term um, um ihn leichter rechnen zu können."]},{"exerciseType": "dancingPanda","exerciseDefinition": ["Der rote Panda Paul, der dich bis jetzt durch die Aufgaben begleitet hat, hat einen Tanz entwickelt, um Süßigkeiten zu bekommen. Er bekommt für jeden Hüpfer und jede Rolle "," Süßigkeiten. Sein Tanz geht: ","<br>Erstelle einen Term um die Anzahl der Süßigkeiten, die er sich verdient zu berechnen.<br>Stelle den Term um, um ihn leichter rechnen zu können."]},{"exerciseType": "none","exerciseDefinition": ["Paul der Panda hebt "," Bananen und "," Nüsse bei "," Fütterungen auf um mit seiner Freundin Paula dem Panda ein Picknick zu machen.<br>Erstelle einen Term um die Anzahl von Bananen und Nüssen zu berechnen.<br>Stelle den Term um, um ihn leichter rechnen zu können."]},{"exerciseType": "addTwo","exerciseDefinition": ["Paul und Paula wollen mit "," Freunden Geburtstag feiern, jeder lädt "," Mädchen und "," Jungen ein.<br>Erstelle einen Term um die Anzahl der Gäste zu berechnen.<br>Stelle den Term um, um ihn leichter rechnen zu können."]},{"exerciseType": "none","exerciseDefinition": ["Ihr sollt für eine Gruppenarbeit "," Gruppen bilden mit jeweils "," Mädchen und "," Jungs.<br>Erstelle einen Term um die Anzahl der Personen zu berechnen.<br>Stelle den Term um, um ihn leichter rechnen zu können."]}]')
+
 function startExercise(difficulty) {
     let lawNavigation = document.getElementById("distributiveLawNavigation")
     lawNavigation.style.display = "none"
@@ -37,23 +39,40 @@ function createDistributivLawExercise() {
     let thirdNumber
 
     if (exercise.exercises[exercise.exerciseNumber - 1] === undefined) {
-        firstNumber = Math.floor(Math.random() * 20 + 5)
-        secondNumber = Math.floor(Math.random() * 20 + 5)
-        thirdNumber = Math.floor(Math.random() * 20 + 5)
-
-        while (secondNumber === firstNumber) {
+        if (exerciseDifficulty === "light" || exerciseDifficulty === "medium") {
+            firstNumber = Math.floor(Math.random() * 20 + 5)
             secondNumber = Math.floor(Math.random() * 20 + 5)
-        }
-
-        while (thirdNumber === firstNumber || thirdNumber === secondNumber) {
             thirdNumber = Math.floor(Math.random() * 20 + 5)
+
+            while (secondNumber === firstNumber) {
+                secondNumber = Math.floor(Math.random() * 20 + 5)
+            }
+
+            while (thirdNumber === firstNumber || thirdNumber === secondNumber) {
+                thirdNumber = Math.floor(Math.random() * 20 + 5)
+            }
+        } else {
+            firstNumber = Math.floor(Math.random() * 10 + 5)
+            secondNumber = Math.floor(Math.random() * 10 + 5)
+            thirdNumber = Math.floor(Math.random() * 10 + 5)
+
+            while (secondNumber === firstNumber) {
+                secondNumber = Math.floor(Math.random() * 10 + 5)
+            }
+
+            while (thirdNumber === firstNumber || thirdNumber === secondNumber) {
+                thirdNumber = Math.floor(Math.random() * 10 + 5)
+            }
         }
 
         let exerciseData = createExerciseDataObject("{}")
         exerciseData.exerciseNumber = exercise.exerciseNumber
+        exerciseData.exerciseTextNumber = Math.floor(Math.random() * 6)
         exerciseData.firstNumber = firstNumber
         exerciseData.secondNumber = secondNumber
         exerciseData.thirdNumber = thirdNumber
+
+        insertExerciseDefinition(exerciseData, exerciseDifficulty)
 
         exercise.exercises.push(exerciseData)
         window.sessionStorage.setItem("exercise", JSON.stringify(exercise))
@@ -62,12 +81,10 @@ function createDistributivLawExercise() {
         secondNumber = exercise.exercises[exercise.exerciseNumber - 1].secondNumber
         thirdNumber = exercise.exercises[exercise.exerciseNumber - 1].thirdNumber
 
+        insertExerciseDefinition(exercise.exercises[exercise.exerciseNumber - 1], exerciseDifficulty)
+
         getExerciseAnswers(exercise.exercises, exercise.exerciseNumber - 1)
     }
-
-    console.log(firstNumber)
-    console.log(secondNumber)
-    console.log(thirdNumber)
 
     let firstNumberText = ""
     let secondNumberText = ""
@@ -142,6 +159,90 @@ function createDistributivLawExercise() {
     div.innerHTML = html
 }
 
+function insertExerciseDefinition(exerciseData, exerciseDifficulty) {
+    let html = ""
+
+    if (exerciseDifficulty === "light") {
+        html = "Vervollständige den Term."
+    } else if (exerciseDifficulty === "medium") {
+        html = "Stelle den Term um, um ihn leichter rechnen zu können."
+    } else {
+        let exerciseDefinitionObject = exerciseDefinition[exerciseData.exerciseTextNumber]
+
+        exerciseDefinitionObject = Object.assign(
+            {
+                exerciseType: "none",
+                exerciseDefinition: []
+            }, exerciseDefinitionObject
+        )
+
+        switch (exerciseDefinitionObject.exerciseType) {
+            case "addOne":
+                html += exerciseDefinitionObject.exerciseDefinition[0]
+                html += (exerciseData.firstNumber - 1).toString()
+                html += exerciseDefinitionObject.exerciseDefinition[1]
+                html += exerciseData.secondNumber.toString()
+                html += exerciseDefinitionObject.exerciseDefinition[2]
+                html += exerciseData.thirdNumber.toString()
+                html += exerciseDefinitionObject.exerciseDefinition[3]
+                break
+            case "addTwo":
+                html += exerciseDefinitionObject.exerciseDefinition[0]
+                html += (exerciseData.firstNumber - 2).toString()
+                html += exerciseDefinitionObject.exerciseDefinition[1]
+                html += exerciseData.secondNumber.toString()
+                html += exerciseDefinitionObject.exerciseDefinition[2]
+                html += exerciseData.thirdNumber.toString()
+                html += exerciseDefinitionObject.exerciseDefinition[3]
+                break
+            case "dancingPanda":
+                let jump = 0
+                let role = 0
+
+                html += exerciseDefinitionObject.exerciseDefinition[0]
+                html += exerciseData.firstNumber.toString()
+                html += exerciseDefinitionObject.exerciseDefinition[1]
+
+                for (let i = 0; i < exerciseData.secondNumber + exerciseData.thirdNumber; i++) {
+                    if (Math.floor(Math.random() + 0.5) === 1) {
+                        if (jump < exerciseData.secondNumber) {
+                            html += "Hüpfer"
+                            jump++
+                        } else {
+                            html += "Rolle"
+                            role++
+                        }
+                    } else {
+                        if (role < exerciseData.thirdNumber) {
+                            html += "Rolle"
+                            role++
+                        } else {
+                            html += "Hüpfer"
+                            jump++
+                        }
+                    }
+
+                    if ((i + 1) < (exerciseData.secondNumber + exerciseData.thirdNumber)) {
+                        html += ", "
+                    }
+                }
+
+                html += exerciseDefinitionObject.exerciseDefinition[2]
+                break
+            default:
+                html += exerciseDefinitionObject.exerciseDefinition[0]
+                html += exerciseData.firstNumber.toString()
+                html += exerciseDefinitionObject.exerciseDefinition[1]
+                html += exerciseData.secondNumber.toString()
+                html += exerciseDefinitionObject.exerciseDefinition[2]
+                html += exerciseData.thirdNumber.toString()
+                html += exerciseDefinitionObject.exerciseDefinition[3]
+        }
+    }
+
+    document.getElementById("exerciseDefinition").innerHTML = html
+}
+
 let firstNumberAnswer = "0"
 let secondNumberAnswer = "0"
 let thirdNumberAnswer = "0"
@@ -154,6 +255,7 @@ function finishExercise() {
     let exercise = createExerciseObject(window.sessionStorage.getItem("exercise"))
     let exerciseDifficulty = exercise.difficulty
 
+    let allExercisesCorrect = true
     let html = ""
     let exerciseData = exercise.exercises
 
@@ -173,49 +275,60 @@ function finishExercise() {
             if (firstNumberAnswer !== secondNumberAnswer) {
                 if ((exerciseData[i].firstNumber.toString() === firstNumberAnswer || exerciseData[i].firstNumber.toString() === secondNumberAnswer)) {
                     if ((exerciseData[i].thirdNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer)) {
-                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/good.png"><p>Richtig</p>`
+                        html += `<img alt="Bild(Richtig)" src="../css/img/feedback/good.png"><p>Richtig</p>`
                     } else {
-                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        allExercisesCorrect = false
                     }
                 } else {
                     if ((exerciseData[i].thirdNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer)) {
-                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        allExercisesCorrect = false
                     } else {
                         html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
+                        allExercisesCorrect = false
                     }
                 }
             } else {
                 html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
+                allExercisesCorrect = false
             }
         } else if (exerciseDifficulty === "medium") {
             if (firstNumberAnswer !== secondNumberAnswer && thirdNumberAnswer !== fourthNumberAnswer) {
                 if ((exerciseData[i].firstNumber.toString() === firstNumberAnswer || exerciseData[i].firstNumber.toString() === secondNumberAnswer) && (exerciseData[i].firstNumber.toString() === thirdNumberAnswer || exerciseData[i].firstNumber.toString() === fourthNumberAnswer)) {
                     if (exerciseData[i].secondNumber.toString() === firstNumberAnswer || exerciseData[i].secondNumber.toString() === secondNumberAnswer || exerciseData[i].secondNumber.toString() === thirdNumberAnswer || exerciseData[i].secondNumber.toString() === fourthNumberAnswer) {
                         if (exerciseData[i].thirdNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer || exerciseData[i].thirdNumber.toString() === thirdNumberAnswer || exerciseData[i].thirdNumber.toString() === fourthNumberAnswer) {
-                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/good.png"><p>Richtig</p>`
+                            html += `<img alt="Bild(Richtig)" src="../css/img/feedback/good.png"><p>Richtig</p>`
                         } else {
-                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                            html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                            allExercisesCorrect = false
                         }
                     } else {
-                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        allExercisesCorrect = false
                     }
                 } else {
                     if (exerciseData[i].secondNumber.toString() === firstNumberAnswer || exerciseData[i].secondNumber.toString() === secondNumberAnswer || exerciseData[i].secondNumber.toString() === thirdNumberAnswer || exerciseData[i].secondNumber.toString() === fourthNumberAnswer) {
                         if (exerciseData[i].thirdNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer || exerciseData[i].thirdNumber.toString() === thirdNumberAnswer || exerciseData[i].thirdNumber.toString() === fourthNumberAnswer) {
-                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                            html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                            allExercisesCorrect = false
                         } else {
-                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                            html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                            allExercisesCorrect = false
                         }
                     } else {
                         if (exerciseData[i].thirdNumber.toString() === firstNumberAnswer || exerciseData[i].thirdNumber.toString() === secondNumberAnswer || exerciseData[i].thirdNumber.toString() === thirdNumberAnswer || exerciseData[i].thirdNumber.toString() === fourthNumberAnswer) {
-                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                            html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                            allExercisesCorrect = false
                         } else {
                             html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
+                            allExercisesCorrect = false
                         }
                     }
                 }
             } else {
                 html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
+                allExercisesCorrect = false
             }
         } else if (exerciseDifficulty === "hard") {
             if (firstNumberAnswer !== secondNumberAnswer && firstNumberAnswer !== thirdNumberAnswer && secondNumberAnswer !== thirdNumberAnswer) {
@@ -226,30 +339,38 @@ function finishExercise() {
                                 if ((exerciseData[i].firstNumber.toString() === fourthNumberAnswer || exerciseData[i].firstNumber.toString() === fifthNumberAnswer) && (exerciseData[i].firstNumber.toString() === sixthNumberAnswer || exerciseData[i].firstNumber.toString() === seventhNumberAnswer)) {
                                     if (exerciseData[i].secondNumber.toString() === fourthNumberAnswer || exerciseData[i].secondNumber.toString() === fifthNumberAnswer || exerciseData[i].secondNumber.toString() === sixthNumberAnswer || exerciseData[i].secondNumber.toString() === seventhNumberAnswer) {
                                         if (exerciseData[i].thirdNumber.toString() === fourthNumberAnswer || exerciseData[i].thirdNumber.toString() === fifthNumberAnswer || exerciseData[i].thirdNumber.toString() === sixthNumberAnswer || exerciseData[i].thirdNumber.toString() === seventhNumberAnswer) {
-                                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/good.png"><p>Richtig</p>`
+                                            html += `<img alt="Bild(Richtig)" src="../css/img/feedback/good.png"><p>Richtig</p>`
                                         } else {
-                                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                            html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                            allExercisesCorrect = false
                                         }
                                     } else {
-                                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                        allExercisesCorrect = false
                                     }
                                 } else {
-                                    html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                    html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                    allExercisesCorrect = false
                                 }
                             } else {
-                                html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                                allExercisesCorrect = false
                             }
                         } else {
-                            html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                            html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                            allExercisesCorrect = false
                         }
                     } else {
-                        html += `<img alt="Bild(Falsch)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        html += `<img alt="Bild(Teilweise Richtig)" src="../css/img/feedback/medium.png"><p>Teilweise Richtig</p>`
+                        allExercisesCorrect = false
                     }
                 } else {
                     html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
+                    allExercisesCorrect = false
                 }
             } else {
                 html += `<img alt="Bild(Falsch)" src="../css/img/feedback/bad.png"><p>Falsch</p>`
+                allExercisesCorrect = false
             }
         }
 
@@ -292,6 +413,16 @@ function finishExercise() {
         if ((i + 1) / 5 === Math.round((i + 1) / 5)) {
             html += "</div>"
         }
+    }
+
+    if (allExercisesCorrect) {
+        if (Math.floor(Math.random() + 0.5) === 1) {
+            document.getElementById("resultRedPanda").innerHTML = `<img src="/css/img/redPanda/managedPause.png" alt="Roter Panda (Ergebnisse)">`
+        } else {
+            document.getElementById("resultRedPanda").innerHTML = `<img src="/css/img/redPanda/managedPerfectly.png" alt="Roter Panda (Ergebnisse)">`
+        }
+    } else {
+        document.getElementById("resultRedPanda").innerHTML = `<img src="/css/img/redPanda/stillLearning.png" alt="Roter Panda (Ergebnisse)">`
     }
 
     let div = document.getElementById("exerciseResultsOut")

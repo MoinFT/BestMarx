@@ -1,0 +1,55 @@
+[
+    {
+        "exerciseType": "none",
+        "exerciseDefinition": [
+            "Du möchtest ",
+            " Personen einen Bananen-Apfel Salat machen, für jede Portion benötigst du ",
+            " Äpfel und ",
+            " Bananen.<br>Erstelle einen Term um die Menge der Früchte zu berechnen.<br>Stelle den Term um, um ihn leichter rechnen zu können."
+        ]
+    },
+    {
+        "exerciseType": "addOne",
+        "exerciseDefinition": [
+            "Um einen Kuchen für dich und ",
+            " Freunde von deiner Oma zu bekommen musst du die Zutaten besorgen. Für eine Portion benötigst du ",
+            "Gramm Bananen und ",
+            "Gramm Haferflocken.<br>Erstelle einen Term um das Gewicht deiner Einkaufstüte zu berechnen.<br>Stelle den Term um, um ihn leichter rechnen zu können."
+        ]
+    },
+    {
+        "exerciseType": "dancingPanda",
+        "exerciseDefinition": [
+            "Der rote Panda Paul, der dich bis jetzt durch die Aufgaben begleitet hat, hat einen Tanz entwickelt, um Süßigkeiten zu bekommen. Er bekommt für jeden Hüpfer und jede Rolle ",
+            " Süßigkeiten. Sein Tanz geht: ",
+            "<br>Erstelle einen Term um die Anzahl der Süßigkeiten die er sich verdient zu berechnen.<br>Stelle den Term um, um ihn leichter rechnen zu können."
+        ]
+    },
+    {
+        "exerciseType": "none",
+        "exerciseDefinition": [
+            "Paul der Panda hebt ",
+            " Bananen und ",
+            " Nüsse bei ",
+            " Fütterungen auf um mit seiner Freundin Paula dem Panda ein Picknick zu machen.<br>Erstelle einen Term um die Anzahl von Bananen und Nüssen zu berechnen.<br>Stelle den Term um, um ihn leichter rechnen zu können."
+        ]
+    },
+    {
+        "exerciseType": "addTwo",
+        "exerciseDefinition": [
+            "Paul und Paula wollen mit ",
+            " Freunden Geburtstag feiern, jeder lädt ",
+            " Mädchen und ",
+            " Jungen ein.<br>Erstelle einen Term um die Anzahl der Gäste zu berechnen.<br>Stelle den Term um, um ihn leichter rechnen zu können."
+        ]
+    },
+    {
+        "exerciseType": "none",
+        "exerciseDefinition": [
+            "Ihr sollt für eine Gruppenarbeit ",
+            " Gruppen bilden mit jeweils ",
+            " Mädchen und ",
+            " Jungs.<br>Erstelle einen Term um die Anzahl der Personen zu berechnen.<br>Stelle den Term um, um ihn leichter rechnen zu können."
+        ]
+    }
+]
