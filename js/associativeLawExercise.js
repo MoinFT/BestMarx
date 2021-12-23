@@ -796,12 +796,12 @@ function finishExercise() {
 
     if (allExercisesCorrect) {
         if (Math.floor(Math.random() + 0.5) === 1) {
-            document.getElementById("resultRedPanda").innerHTML = `<img src="/css/img/redPanda/managedPause.png" alt="Roter Panda (Ergebnisse)">`
+            document.getElementById("resultRedPanda").innerHTML = `<img src="../css/img/redPanda/managedPause.png" alt="Roter Panda (Ergebnisse)">`
         } else {
-            document.getElementById("resultRedPanda").innerHTML = `<img src="/css/img/redPanda/managedPerfectly.png" alt="Roter Panda (Ergebnisse)">`
+            document.getElementById("resultRedPanda").innerHTML = `<img src="../css/img/redPanda/managedPerfectly.png" alt="Roter Panda (Ergebnisse)">`
         }
     } else {
-        document.getElementById("resultRedPanda").innerHTML = `<img src="/css/img/redPanda/stillLearning.png" alt="Roter Panda (Ergebnisse)">`
+        document.getElementById("resultRedPanda").innerHTML = `<img src="../css/img/redPanda/stillLearning.png" alt="Roter Panda (Ergebnisse)">`
     }
 
     let div = document.getElementById("exerciseResultsOut")
